@@ -1975,15 +1975,22 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  3558796: function() {Module['emscripten_get_now_backup'] = performance.now;},  
- 3558851: function($0) {performance.now = function() { return $0; };},  
- 3558899: function($0) {performance.now = function() { return $0; };},  
- 3558947: function() {performance.now = Module['emscripten_get_now_backup'];},  
- 3559002: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
- 3559063: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
- 3559127: function() {return Module.webglContextAttributes.powerPreference;}
+  3032608: function() {Module['emscripten_get_now_backup'] = performance.now;},  
+ 3032663: function($0) {performance.now = function() { return $0; };},  
+ 3032711: function($0) {performance.now = function() { return $0; };},  
+ 3032759: function() {performance.now = Module['emscripten_get_now_backup'];},  
+ 3032814: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
+ 3032875: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
+ 3032939: function() {return Module.webglContextAttributes.powerPreference;}
 };
-
+function zappar_issue_js_plugin_face_mesh_normals(o){ return window.zappar_native_callbacks.face_mesh_normals(o); }
+function zappar_issue_js_plugin_face_mesh_normals_size(o){ return window.zappar_native_callbacks.face_mesh_normals_size(o); }
+function zappar_issue_js_plugin_face_mesh_uvs(o){ return window.zappar_native_callbacks.face_mesh_uvs(o); }
+function zappar_issue_js_plugin_face_mesh_uvs_size(o){ return window.zappar_native_callbacks.face_mesh_uvs_size(o); }
+function zappar_issue_js_plugin_face_mesh_vertices(o){ return window.zappar_native_callbacks.face_mesh_vertices(o); }
+function zappar_issue_js_plugin_face_mesh_vertices_size(o){ return window.zappar_native_callbacks.face_mesh_vertices_size(o); }
+function zappar_issue_js_plugin_render_event(){ window.zappar_native_callbacks.process_gl(); }
+function zappar_issue_js_plugin_upload_gl_event(){ window.zappar_native_callbacks.upload_gl(); }
 
 
 
@@ -4292,22 +4299,6 @@ var ASM_CONSTS = {
   	channel.stop(delay);
   }
 
-  function _JS_SystemInfo_GetBrowserName(buffer, bufferSize) 
-  	{
-  		var browser = Module.SystemInfo.browser;
-  		if (buffer)
-  			stringToUTF8(browser, buffer, bufferSize);
-  		return lengthBytesUTF8(browser);
-  	}
-
-  function _JS_SystemInfo_GetBrowserVersionString(buffer, bufferSize)
-  	{
-  		var browserVer = Module.SystemInfo.browserVersion;
-  		if (buffer)
-  			stringToUTF8(browserVer, buffer, bufferSize);
-  		return lengthBytesUTF8(browserVer);
-  	}
-
   function _JS_SystemInfo_GetCanvasClientSize(domElementSelector, outWidth, outHeight)
   	{
   		var selector = UTF8ToString(domElementSelector);
@@ -4335,14 +4326,6 @@ var ASM_CONSTS = {
   		if (buffer)
   			stringToUTF8(gpuinfo, buffer, bufferSize);
   		return lengthBytesUTF8(gpuinfo);
-  	}
-
-  function _JS_SystemInfo_GetLanguage(buffer, bufferSize) 
-  	{
-  		var language = Module.SystemInfo.language;
-  		if (buffer)
-  			stringToUTF8(language, buffer, bufferSize);
-  		return lengthBytesUTF8(language);
   	}
 
   function _JS_SystemInfo_GetMatchWebGLToCanvasSize()
@@ -4375,6 +4358,13 @@ var ASM_CONSTS = {
   	{
   		HEAPF64[outWidth >> 3] = Module.SystemInfo.width;
   		HEAPF64[outHeight >> 3] = Module.SystemInfo.height;
+  	}
+
+  function _JS_SystemInfo_GetStreamingAssetsURL(buffer, bufferSize) 
+  	{
+  		if (buffer)
+  			stringToUTF8(Module.streamingAssetsUrl, buffer, bufferSize);
+  		return lengthBytesUTF8(Module.streamingAssetsUrl);
   	}
 
   function _JS_SystemInfo_HasAstcHdr()
@@ -12932,6 +12922,16 @@ var ASM_CONSTS = {
       return GLctx.getAttribLocation(GL.programs[program], UTF8ToString(name));
     }
 
+  function _glGetBufferParameteriv(target, value, data) {
+      if (!data) {
+        // GLES2 specification does not specify how to behave if data is a null pointer. Since calling this function does not make sense
+        // if data == null, issue a GL error to notify user about it.
+        GL.recordError(0x501 /* GL_INVALID_VALUE */);
+        return;
+      }
+      HEAP32[((data)>>2)] = GLctx.getBufferParameter(target, value);
+    }
+
   function _glGetBufferSubData(target, offset, size, data) {
       if (!data) {
         // GLES2 specification does not specify how to behave if data is a null pointer. Since calling this function does not make sense
@@ -14946,6 +14946,305 @@ var ASM_CONSTS = {
       return bytes.length-1;
     }
 
+  var zappar_support = {};
+  function _zappar_analytics_project_id_set() {}
+
+  function _zappar_barcode_finder_create() {}
+
+  function _zappar_barcode_finder_destroy() {}
+
+  function _zappar_barcode_finder_enabled() {}
+
+  function _zappar_barcode_finder_enabled_set() {}
+
+  function _zappar_barcode_finder_formats() {}
+
+  function _zappar_barcode_finder_formats_set() {}
+
+  function _zappar_barcode_finder_found_format() {}
+
+  function _zappar_barcode_finder_found_number() {}
+
+  function _zappar_barcode_finder_found_text() {}
+
+  function _zappar_camera_count() {}
+
+  function _zappar_camera_default_device_id() {}
+
+  function _zappar_camera_id() {}
+
+  function _zappar_camera_name() {}
+
+  function _zappar_camera_source_create() {}
+
+  function _zappar_camera_source_destroy() {}
+
+  function _zappar_camera_source_pause() {}
+
+  function _zappar_camera_source_start() {}
+
+  function _zappar_camera_user_facing() {}
+
+  function _zappar_face_landmark_anchor_pose() {}
+
+  function _zappar_face_landmark_create() {}
+
+  function _zappar_face_landmark_destroy() {}
+
+  function _zappar_face_landmark_update() {}
+
+  function _zappar_face_mesh_create() {}
+
+  function _zappar_face_mesh_destroy() {}
+
+  function _zappar_face_mesh_indices() {}
+
+  function _zappar_face_mesh_indices_size() {}
+
+  function _zappar_face_mesh_load_default() {}
+
+  function _zappar_face_mesh_load_default_face() {}
+
+  function _zappar_face_mesh_load_default_full_head_simplified() {}
+
+  function _zappar_face_mesh_load_from_memory() {}
+
+  function _zappar_face_mesh_loaded_version() {}
+
+  function _zappar_face_mesh_normals() {}
+
+  function _zappar_face_mesh_normals_size() {}
+
+  function _zappar_face_mesh_update() {}
+
+  function _zappar_face_mesh_uvs() {}
+
+  function _zappar_face_mesh_uvs_size() {}
+
+  function _zappar_face_mesh_vertices() {}
+
+  function _zappar_face_mesh_vertices_size() {}
+
+  function _zappar_face_tracker_anchor_count() {}
+
+  function _zappar_face_tracker_anchor_expression_coefficients() {}
+
+  function _zappar_face_tracker_anchor_id() {}
+
+  function _zappar_face_tracker_anchor_identity_coefficients() {}
+
+  function _zappar_face_tracker_anchor_pose() {}
+
+  function _zappar_face_tracker_anchor_pose_camera_relative() {}
+
+  function _zappar_face_tracker_anchor_pose_raw() {}
+
+  function _zappar_face_tracker_create() {}
+
+  function _zappar_face_tracker_destroy() {}
+
+  function _zappar_face_tracker_enabled() {}
+
+  function _zappar_face_tracker_enabled_set() {}
+
+  function _zappar_face_tracker_max_faces() {}
+
+  function _zappar_face_tracker_max_faces_set() {}
+
+  function _zappar_face_tracker_model_load_default() {}
+
+  function _zappar_face_tracker_model_load_from_memory() {}
+
+  function _zappar_face_tracker_model_loaded_version() {}
+
+  function _zappar_has_initialized() {}
+
+  function _zappar_image_tracker_anchor_count() {}
+
+  function _zappar_image_tracker_anchor_id() {}
+
+  function _zappar_image_tracker_anchor_pose() {}
+
+  function _zappar_image_tracker_anchor_pose_camera_relative() {}
+
+  function _zappar_image_tracker_anchor_pose_raw() {}
+
+  function _zappar_image_tracker_create() {}
+
+  function _zappar_image_tracker_destroy() {}
+
+  function _zappar_image_tracker_enabled() {}
+
+  function _zappar_image_tracker_enabled_set() {}
+
+  function _zappar_image_tracker_target_count() {}
+
+  function _zappar_image_tracker_target_load_from_memory() {}
+
+  function _zappar_image_tracker_target_loaded_version() {}
+
+  function _zappar_image_tracker_target_physical_scale_factor() {}
+
+  function _zappar_image_tracker_target_preview_compressed() {}
+
+  function _zappar_image_tracker_target_preview_compressed_mimetype() {}
+
+  function _zappar_image_tracker_target_preview_compressed_size() {}
+
+  function _zappar_image_tracker_target_preview_mesh_indices() {}
+
+  function _zappar_image_tracker_target_preview_mesh_indices_size() {}
+
+  function _zappar_image_tracker_target_preview_mesh_normals() {}
+
+  function _zappar_image_tracker_target_preview_mesh_normals_size() {}
+
+  function _zappar_image_tracker_target_preview_mesh_uvs() {}
+
+  function _zappar_image_tracker_target_preview_mesh_uvs_size() {}
+
+  function _zappar_image_tracker_target_preview_mesh_vertices() {}
+
+  function _zappar_image_tracker_target_preview_mesh_vertices_size() {}
+
+  function _zappar_image_tracker_target_preview_rgba() {}
+
+  function _zappar_image_tracker_target_preview_rgba_height() {}
+
+  function _zappar_image_tracker_target_preview_rgba_size() {}
+
+  function _zappar_image_tracker_target_preview_rgba_width() {}
+
+  function _zappar_image_tracker_target_radius_bottom() {}
+
+  function _zappar_image_tracker_target_radius_top() {}
+
+  function _zappar_image_tracker_target_side_length() {}
+
+  function _zappar_image_tracker_target_type() {}
+
+  function _zappar_initialize() {}
+
+  function _zappar_instant_world_tracker_anchor_pose() {}
+
+  function _zappar_instant_world_tracker_anchor_pose_camera_relative() {}
+
+  function _zappar_instant_world_tracker_anchor_pose_raw() {}
+
+  function _zappar_instant_world_tracker_anchor_pose_set_from_camera_offset() {}
+
+  function _zappar_instant_world_tracker_anchor_pose_set_from_camera_offset_raw() {}
+
+  function _zappar_instant_world_tracker_create() {}
+
+  function _zappar_instant_world_tracker_destroy() {}
+
+  function _zappar_instant_world_tracker_enabled() {}
+
+  function _zappar_instant_world_tracker_enabled_set() {}
+
+  function _zappar_is_visible_webgl() { return document.visibilityState === "visible"; }
+
+  function _zappar_loaded() {}
+
+  function _zappar_log_level_set() {}
+
+  function _zappar_permission_denied_any() {}
+
+  function _zappar_permission_denied_camera() {}
+
+  function _zappar_permission_denied_motion() {}
+
+  function _zappar_permission_denied_ui() {}
+
+  function _zappar_permission_granted_all() {}
+
+  function _zappar_permission_granted_camera() {}
+
+  function _zappar_permission_granted_motion() {}
+
+  function _zappar_permission_request_all() {}
+
+  function _zappar_permission_request_camera() {}
+
+  function _zappar_permission_request_motion() {}
+
+  function _zappar_permission_request_ui() {}
+
+  function _zappar_pipeline_camera_frame_camera_attitude() {}
+
+  function _zappar_pipeline_camera_frame_device_attitude() {}
+
+  function _zappar_pipeline_camera_frame_submit() {}
+
+  function _zappar_pipeline_camera_frame_texture_dx11() {}
+
+  function _zappar_pipeline_camera_frame_texture_gl() {}
+
+  function _zappar_pipeline_camera_frame_texture_matrix() {}
+
+  function _zappar_pipeline_camera_frame_texture_metal() {}
+
+  function _zappar_pipeline_camera_frame_user_data() {}
+
+  function _zappar_pipeline_camera_frame_user_facing() {}
+
+  function _zappar_pipeline_camera_model() {}
+
+  function _zappar_pipeline_camera_pose_default() {}
+
+  function _zappar_pipeline_camera_pose_with_attitude() {}
+
+  function _zappar_pipeline_camera_pose_with_origin() {}
+
+  function _zappar_pipeline_create() {}
+
+  function _zappar_pipeline_destroy() {}
+
+  function _zappar_pipeline_frame_number() {}
+
+  function _zappar_pipeline_frame_update() {}
+
+  function _zappar_pipeline_gl_context_set() {}
+
+  function _zappar_pipeline_motion_accelerometer_submit() {}
+
+  function _zappar_pipeline_motion_attitude_matrix_submit() {}
+
+  function _zappar_pipeline_motion_attitude_submit() {}
+
+  function _zappar_pipeline_motion_rotation_rate_submit() {}
+
+  function _zappar_pipeline_sequence_record_clear() {}
+
+  function _zappar_pipeline_sequence_record_data() {}
+
+  function _zappar_pipeline_sequence_record_data_size() {}
+
+  function _zappar_pipeline_sequence_record_device_attitude_matrices_set() {}
+
+  function _zappar_pipeline_sequence_record_start() {}
+
+  function _zappar_pipeline_sequence_record_stop() {}
+
+  function _zappar_pipeline_set() {}
+
+  function _zappar_projection_matrix_from_camera_model() {}
+
+  function _zappar_projection_matrix_from_camera_model_ext() {}
+
+  function _zappar_sequence_source_create() {}
+
+  function _zappar_sequence_source_destroy() {}
+
+  function _zappar_sequence_source_load_from_memory() {}
+
+  function _zappar_sequence_source_max_playback_fps_set() {}
+
+  function _zappar_sequence_source_pause() {}
+
+  function _zappar_sequence_source_start() {}
+
   var FSNode = /** @constructor */ function(parent, name, mode, rdev) {
     if (!parent) {
       parent = this;  // root node sets parent to itself
@@ -15135,6 +15434,948 @@ var __miniTempWebGLIntBuffersStorage = new Int32Array(288);
   __miniTempWebGLIntBuffers[i] = __miniTempWebGLIntBuffersStorage.subarray(0, i+1);
   }
   ;
+
+      (function() {
+      var hasInitialized = false;
+      var zappar;
+      var textureMap = new Map();
+      var pipeline_;
+  
+      _zappar_has_initialized = function() {
+          return hasInitialized ? 1 : 0;
+      }
+  
+      _zappar_initialize = function() {
+          if (typeof ZCV === 'undefined') {
+              var scr = document.createElement("script");
+              scr.src="https://libs.zappar.com/zappar-cv/2.1.2/zappar-cv.js";
+              scr.addEventListener('load', function() {
+                  zappar = ZCV.initialize();
+                  hasInitialized = true;
+              });
+              document.body.appendChild(scr);
+          } else {
+              if(typeof window.zappar === 'undefined' && typeof zappar === 'undefined'){
+                  zappar = ZCV.initialize();
+              }else if(typeof zappar === 'undefined') {
+                  zappar = window.zappar;
+              }
+              hasInitialized = true;
+          }
+  
+          var zappar_native_callbacks = {
+              process_gl: _zappar_pipeline_process_gl,
+              upload_gl: _zappar_pipeline_camera_frame_upload_gl,
+              face_mesh_vertices: _zappar_face_mesh_vertices,
+              face_mesh_vertices_size: _zappar_face_mesh_vertices_size,
+              face_mesh_normals: _zappar_face_mesh_normals,
+              face_mesh_normals_size: _zappar_face_mesh_normals_size,
+              face_mesh_uvs: _zappar_face_mesh_uvs,
+              face_mesh_uvs_size: _zappar_face_mesh_uvs_size
+          };
+  
+          window.zappar_native_callbacks = zappar_native_callbacks;
+      }
+  
+      _zappar_pipeline_gl_context_set = function( pipeline ) {
+          zappar.pipeline_gl_context_set(pipeline, GLctx);
+      };
+  
+      _zappar_pipeline_set = function(o) {
+          pipeline_ = o;
+      };
+  
+      _zappar_pipeline_process_gl = function(o) {
+          var ret = zappar.pipeline_process_gl( pipeline_ );
+          return ret;
+      };
+  
+      _zappar_pipeline_camera_frame_upload_gl = function(o) {  
+          var ret = zappar.pipeline_camera_frame_upload_gl(pipeline_);
+          return ret;
+      };
+      
+      _zappar_loaded = function() {
+          
+          var ret = zappar.loaded();
+          return ret;
+      };
+  	_zappar_camera_default_device_id = function(userFacing) {
+          var userFacing_val = userFacing;
+          var ret = zappar.camera_default_device_id(userFacing_val);
+          var bufferSize = lengthBytesUTF8(ret) + 1;
+          var buffer = _malloc(bufferSize);
+          stringToUTF8(ret, buffer, bufferSize);
+          return buffer;
+      };
+  	_zappar_camera_count = function() {
+          
+          var ret = zappar.camera_count();
+          return ret;
+      };
+  	_zappar_camera_id = function(indx) {
+          var indx_val = indx;
+          var ret = zappar.camera_id(indx_val);
+          var bufferSize = lengthBytesUTF8(ret) + 1;
+          var buffer = _malloc(bufferSize);
+          stringToUTF8(ret, buffer, bufferSize);
+          return buffer;
+      };
+  	_zappar_camera_name = function(indx) {
+          var indx_val = indx;
+          var ret = zappar.camera_name(indx_val);
+          var bufferSize = lengthBytesUTF8(ret) + 1;
+          var buffer = _malloc(bufferSize);
+          stringToUTF8(ret, buffer, bufferSize);
+          return buffer;
+      };
+  	_zappar_camera_user_facing = function(indx) {
+          var indx_val = indx;
+          var ret = zappar.camera_user_facing(indx_val);
+          return ret;
+      };
+  	_zappar_projection_matrix_from_camera_model = function(model, renderWidth, renderHeight) {
+          var model_val = new Float32Array(6);
+          model_val.set(HEAPF32.subarray(model/4, 6 + model / 4));
+  		var renderWidth_val = renderWidth;
+  		var renderHeight_val = renderHeight;
+          var ret = zappar.projection_matrix_from_camera_model(model_val, renderWidth_val, renderHeight_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_projection_matrix_from_camera_model_ext = function(model, renderWidth, renderHeight, zNear, zFar) {
+          var model_val = new Float32Array(6);
+          model_val.set(HEAPF32.subarray(model/4, 6 + model / 4));
+  		var renderWidth_val = renderWidth;
+  		var renderHeight_val = renderHeight;
+  		var zNear_val = zNear;
+  		var zFar_val = zFar;
+          var ret = zappar.projection_matrix_from_camera_model_ext(model_val, renderWidth_val, renderHeight_val, zNear_val, zFar_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	
+  	
+  	
+  	_zappar_log_level_set = function(level) {
+          var level_val = level;
+          var ret = zappar.log_level_set(level_val);
+          return ret;
+      };
+  	
+  	
+  	
+  	_zappar_permission_request_ui = function() {
+          
+          var ret = zappar.permission_request_ui();
+          return ret;
+      };
+  	_zappar_permission_denied_ui = function() {
+          
+          var ret = zappar.permission_denied_ui();
+          return ret;
+      };
+  	_zappar_permission_request_all = function() {
+          
+          var ret = zappar.permission_request_all();
+          return ret;
+      };
+  	_zappar_permission_request_camera = function() {
+          
+          var ret = zappar.permission_request_camera();
+          return ret;
+      };
+  	_zappar_permission_request_motion = function() {
+          
+          var ret = zappar.permission_request_motion();
+          return ret;
+      };
+  	_zappar_permission_granted_all = function() {
+          
+          var ret = zappar.permission_granted_all();
+          return ret;
+      };
+  	_zappar_permission_granted_camera = function() {
+          
+          var ret = zappar.permission_granted_camera();
+          return ret;
+      };
+  	_zappar_permission_granted_motion = function() {
+          
+          var ret = zappar.permission_granted_motion();
+          return ret;
+      };
+  	_zappar_permission_denied_any = function() {
+          
+          var ret = zappar.permission_denied_any();
+          return ret;
+      };
+  	_zappar_permission_denied_camera = function() {
+          
+          var ret = zappar.permission_denied_camera();
+          return ret;
+      };
+  	_zappar_permission_denied_motion = function() {
+          
+          var ret = zappar.permission_denied_motion();
+          return ret;
+      };
+  	_zappar_analytics_project_id_set = function(id, uid) {
+          var id_val = UTF8ToString(id);
+  		var uid_val = UTF8ToString(uid);
+          var ret = zappar.analytics_project_id_set(id_val, uid_val);
+          return ret;
+      };
+      
+      _zappar_pipeline_create = function() {
+          
+          var ret = zappar.pipeline_create();
+          return ret;
+      };
+      _zappar_pipeline_destroy = function(o) {
+          var o_val = o;
+          var ret = zappar.pipeline_destroy(o_val);
+          return ret;
+      };
+      
+  	_zappar_pipeline_camera_frame_texture_gl = function(o) {
+          
+          var ret = zappar.pipeline_camera_frame_texture_gl(o);
+          if (!ret) return 0;
+          var id = textureMap.get(ret);
+          if (id === undefined) {
+              id = GL.getNewId(GL.textures);
+              GL.textures[id] = ret;
+              textureMap.set (ret, id);
+          }
+          return id !== undefined ? id : 0;
+          
+      };
+  	
+  	
+  	
+  	
+  	_zappar_pipeline_camera_frame_texture_matrix = function(o, renderWidth, renderHeight, mirror) {
+          var renderWidth_val = renderWidth;
+  		var renderHeight_val = renderHeight;
+  		var mirror_val = mirror;
+          var ret = zappar.pipeline_camera_frame_texture_matrix(o, renderWidth_val, renderHeight_val, mirror_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	
+  	_zappar_pipeline_frame_update = function(o) {
+          
+          var ret = zappar.pipeline_frame_update(o);
+          return ret;
+      };
+  	_zappar_pipeline_frame_number = function(o) {
+          
+          var ret = zappar.pipeline_frame_number(o);
+          return ret;
+      };
+  	_zappar_pipeline_camera_model = function(o) {
+          
+          var ret = zappar.pipeline_camera_model(o);
+          var buffer = _malloc(6 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_pipeline_camera_pose_default = function(o) {
+          
+          var ret = zappar.pipeline_camera_pose_default(o);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_pipeline_camera_pose_with_attitude = function(o, mirror) {
+          var mirror_val = mirror;
+          var ret = zappar.pipeline_camera_pose_with_attitude(o, mirror_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_pipeline_camera_pose_with_origin = function(o, pose) {
+          var pose_val = new Float32Array(16);
+          pose_val.set(HEAPF32.subarray(pose/4, 16 + pose / 4));
+          var ret = zappar.pipeline_camera_pose_with_origin(o, pose_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_pipeline_camera_frame_user_data = function(o) {
+          
+          var ret = zappar.pipeline_camera_frame_user_data(o);
+          return ret;
+      };
+  	_zappar_pipeline_camera_frame_submit = function(o, data, data_size, width, height, user_data, camera_to_device_transform, camera_model, user_facing) {
+          var data_val = new Uint8Array(data_size);
+          data_val.set(HEAPU8.subarray(data, data + data_size));
+  		var width_val = width;
+  		var height_val = height;
+  		var user_data_val = user_data;
+  		var camera_to_device_transform_val = new Float32Array(16);
+          camera_to_device_transform_val.set(HEAPF32.subarray(camera_to_device_transform/4, 16 + camera_to_device_transform / 4));
+  		var camera_model_val = new Float32Array(6);
+          camera_model_val.set(HEAPF32.subarray(camera_model/4, 6 + camera_model / 4));
+  		var user_facing_val = user_facing;
+          var ret = zappar.pipeline_camera_frame_submit(o, data_val, width_val, height_val, user_data_val, camera_to_device_transform_val, camera_model_val, user_facing_val);
+          return ret;
+      };
+  	
+  	_zappar_pipeline_camera_frame_camera_attitude = function(o) {
+          
+          var ret = zappar.pipeline_camera_frame_camera_attitude(o);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_pipeline_camera_frame_device_attitude = function(o) {
+          
+          var ret = zappar.pipeline_camera_frame_device_attitude(o);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_pipeline_camera_frame_user_facing = function(o) {
+          
+          var ret = zappar.pipeline_camera_frame_user_facing(o);
+          return ret;
+      };
+  	_zappar_pipeline_motion_accelerometer_submit = function(o, time, x, y, z) {
+          var time_val = time;
+  		var x_val = x;
+  		var y_val = y;
+  		var z_val = z;
+          var ret = zappar.pipeline_motion_accelerometer_submit(o, time_val, x_val, y_val, z_val);
+          return ret;
+      };
+  	_zappar_pipeline_motion_rotation_rate_submit = function(o, time, x, y, z) {
+          var time_val = time;
+  		var x_val = x;
+  		var y_val = y;
+  		var z_val = z;
+          var ret = zappar.pipeline_motion_rotation_rate_submit(o, time_val, x_val, y_val, z_val);
+          return ret;
+      };
+  	_zappar_pipeline_motion_attitude_submit = function(o, time, x, y, z) {
+          var time_val = time;
+  		var x_val = x;
+  		var y_val = y;
+  		var z_val = z;
+          var ret = zappar.pipeline_motion_attitude_submit(o, time_val, x_val, y_val, z_val);
+          return ret;
+      };
+  	_zappar_pipeline_motion_attitude_matrix_submit = function(o, mat) {
+          var mat_val = new Float32Array(16);
+          mat_val.set(HEAPF32.subarray(mat/4, 16 + mat / 4));
+          var ret = zappar.pipeline_motion_attitude_matrix_submit(o, mat_val);
+          return ret;
+      };
+  	_zappar_pipeline_sequence_record_start = function(o, expected_frames) {
+          var expected_frames_val = expected_frames;
+          var ret = zappar.pipeline_sequence_record_start(o, expected_frames_val);
+          return ret;
+      };
+  	_zappar_pipeline_sequence_record_stop = function(o) {
+          
+          var ret = zappar.pipeline_sequence_record_stop(o);
+          return ret;
+      };
+  	_zappar_pipeline_sequence_record_device_attitude_matrices_set = function(o, val) {
+          var val_val = val;
+          var ret = zappar.pipeline_sequence_record_device_attitude_matrices_set(o, val_val);
+          return ret;
+      };
+  	_zappar_pipeline_sequence_record_data = function(o) {
+          
+          var ret = zappar.pipeline_sequence_record_data(o);
+          return ret;
+      };
+  	_zappar_pipeline_sequence_record_data_size = function(o) {
+          
+          var ret = zappar.pipeline_sequence_record_data_size(o);
+          return ret;
+      };
+  	_zappar_pipeline_sequence_record_clear = function(o) {
+          
+          var ret = zappar.pipeline_sequence_record_clear(o);
+          return ret;
+      };
+      
+  	
+      _zappar_camera_source_create = function(pipeline, device_id) {
+          var pipeline_val = pipeline;
+  		var device_id_val = UTF8ToString(device_id);
+          var ret = zappar.camera_source_create(pipeline_val, device_id_val);
+          return ret;
+      };
+      _zappar_camera_source_destroy = function(o) {
+          var o_val = o;
+          var ret = zappar.camera_source_destroy(o_val);
+          return ret;
+      };
+      _zappar_camera_source_start = function(o) {
+          
+          var ret = zappar.camera_source_start(o);
+          return ret;
+      };
+  	_zappar_camera_source_pause = function(o) {
+          
+          var ret = zappar.camera_source_pause(o);
+          return ret;
+      };
+      
+  	
+      _zappar_sequence_source_create = function(pipeline) {
+          var pipeline_val = pipeline;
+          var ret = zappar.sequence_source_create(pipeline_val);
+          return ret;
+      };
+      _zappar_sequence_source_destroy = function(o) {
+          var o_val = o;
+          var ret = zappar.sequence_source_destroy(o_val);
+          return ret;
+      };
+      _zappar_sequence_source_start = function(o) {
+          
+          var ret = zappar.sequence_source_start(o);
+          return ret;
+      };
+  	_zappar_sequence_source_pause = function(o) {
+          
+          var ret = zappar.sequence_source_pause(o);
+          return ret;
+      };
+  	_zappar_sequence_source_load_from_memory = function(o, data, data_size) {
+          var data_val = new Uint8Array(data_size);
+          data_val.set(HEAPU8.subarray(data, data + data_size));
+          var ret = zappar.sequence_source_load_from_memory(o, data_val);
+          return ret;
+      };
+  	_zappar_sequence_source_max_playback_fps_set = function(o, fps) {
+          var fps_val = fps;
+          var ret = zappar.sequence_source_max_playback_fps_set(o, fps_val);
+          return ret;
+      };
+      
+  	
+      _zappar_image_tracker_create = function(pipeline) {
+          var pipeline_val = pipeline;
+          var ret = zappar.image_tracker_create(pipeline_val);
+          return ret;
+      };
+      _zappar_image_tracker_destroy = function(o) {
+          var o_val = o;
+          var ret = zappar.image_tracker_destroy(o_val);
+          return ret;
+      };
+      _zappar_image_tracker_target_load_from_memory = function(o, data, data_size) {
+          var data_val = new Uint8Array(data_size);
+          data_val.set(HEAPU8.subarray(data, data + data_size));
+          var ret = zappar.image_tracker_target_load_from_memory(o, data_val);
+          return ret;
+      };
+  	_zappar_image_tracker_target_loaded_version = function(o) {
+          
+          var ret = zappar.image_tracker_target_loaded_version(o);
+          return ret;
+      };
+  	_zappar_image_tracker_target_count = function(o) {
+          
+          var ret = zappar.image_tracker_target_count(o);
+          return ret;
+      };
+  	_zappar_image_tracker_target_type = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_type(o, indx_val);
+          return ret;
+      };
+  	_zappar_image_tracker_target_radius_top = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_radius_top(o, indx_val);
+          return ret;
+      };
+  	_zappar_image_tracker_target_radius_bottom = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_radius_bottom(o, indx_val);
+          return ret;
+      };
+  	_zappar_image_tracker_target_side_length = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_side_length(o, indx_val);
+          return ret;
+      };
+  	_zappar_image_tracker_target_physical_scale_factor = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_physical_scale_factor(o, indx_val);
+          return ret;
+      };
+  	
+  	_zappar_image_tracker_target_preview_compressed_size = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_preview_compressed_size(o, indx_val);
+          return ret;
+      };
+  	
+  	
+  	
+  	
+  	
+  	_zappar_image_tracker_target_preview_mesh_indices = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_preview_mesh_indices(o, indx_val);
+          var n = zappar.image_tracker_target_preview_mesh_indices_size(o, indx);
+          var buffer = _malloc(n * 2);
+          HEAPU16.set(ret, buffer / 2);
+          return buffer;
+      };
+  	_zappar_image_tracker_target_preview_mesh_indices_size = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_preview_mesh_indices_size(o, indx_val);
+          return ret;
+      };
+  	_zappar_image_tracker_target_preview_mesh_vertices = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_preview_mesh_vertices(o, indx_val);
+          var n = zappar.image_tracker_target_preview_mesh_vertices_size(o, indx);
+          var buffer = _malloc(n * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_image_tracker_target_preview_mesh_vertices_size = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_preview_mesh_vertices_size(o, indx_val);
+          return ret;
+      };
+  	_zappar_image_tracker_target_preview_mesh_normals = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_preview_mesh_normals(o, indx_val);
+          var n = zappar.image_tracker_target_preview_mesh_normals_size(o, indx);
+          var buffer = _malloc(n * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_image_tracker_target_preview_mesh_normals_size = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_preview_mesh_normals_size(o, indx_val);
+          return ret;
+      };
+  	_zappar_image_tracker_target_preview_mesh_uvs = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_preview_mesh_uvs(o, indx_val);
+          var n = zappar.image_tracker_target_preview_mesh_uvs_size(o, indx);
+          var buffer = _malloc(n * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_image_tracker_target_preview_mesh_uvs_size = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_target_preview_mesh_uvs_size(o, indx_val);
+          return ret;
+      };
+  	_zappar_image_tracker_enabled = function(o) {
+          
+          var ret = zappar.image_tracker_enabled(o);
+          return ret;
+      };
+  	_zappar_image_tracker_enabled_set = function(o, enabled) {
+          var enabled_val = enabled;
+          var ret = zappar.image_tracker_enabled_set(o, enabled_val);
+          return ret;
+      };
+  	_zappar_image_tracker_anchor_count = function(o) {
+          
+          var ret = zappar.image_tracker_anchor_count(o);
+          return ret;
+      };
+  	_zappar_image_tracker_anchor_id = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_anchor_id(o, indx_val);
+          var bufferSize = lengthBytesUTF8(ret) + 1;
+          var buffer = _malloc(bufferSize);
+          stringToUTF8(ret, buffer, bufferSize);
+          return buffer;
+      };
+  	_zappar_image_tracker_anchor_pose_raw = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.image_tracker_anchor_pose_raw(o, indx_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_image_tracker_anchor_pose_camera_relative = function(o, indx, mirror) {
+          var indx_val = indx;
+  		var mirror_val = mirror;
+          var ret = zappar.image_tracker_anchor_pose_camera_relative(o, indx_val, mirror_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_image_tracker_anchor_pose = function(o, indx, camera_pose, mirror) {
+          var indx_val = indx;
+  		var camera_pose_val = new Float32Array(16);
+          camera_pose_val.set(HEAPF32.subarray(camera_pose/4, 16 + camera_pose / 4));
+  		var mirror_val = mirror;
+          var ret = zappar.image_tracker_anchor_pose(o, indx_val, camera_pose_val, mirror_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+      
+  	
+      _zappar_face_tracker_create = function(pipeline) {
+          var pipeline_val = pipeline;
+          var ret = zappar.face_tracker_create(pipeline_val);
+          return ret;
+      };
+      _zappar_face_tracker_destroy = function(o) {
+          var o_val = o;
+          var ret = zappar.face_tracker_destroy(o_val);
+          return ret;
+      };
+      _zappar_face_tracker_model_load_from_memory = function(o, data, data_size) {
+          var data_val = new Uint8Array(data_size);
+          data_val.set(HEAPU8.subarray(data, data + data_size));
+          var ret = zappar.face_tracker_model_load_from_memory(o, data_val);
+          return ret;
+      };
+  	_zappar_face_tracker_model_load_default = function(o) {
+          
+          var ret = zappar.face_tracker_model_load_default(o);
+          return ret;
+      };
+  	_zappar_face_tracker_model_loaded_version = function(o) {
+          
+          var ret = zappar.face_tracker_model_loaded_version(o);
+          return ret;
+      };
+  	_zappar_face_tracker_enabled_set = function(o, enabled) {
+          var enabled_val = enabled;
+          var ret = zappar.face_tracker_enabled_set(o, enabled_val);
+          return ret;
+      };
+  	_zappar_face_tracker_enabled = function(o) {
+          
+          var ret = zappar.face_tracker_enabled(o);
+          return ret;
+      };
+  	_zappar_face_tracker_max_faces_set = function(o, num) {
+          var num_val = num;
+          var ret = zappar.face_tracker_max_faces_set(o, num_val);
+          return ret;
+      };
+  	_zappar_face_tracker_max_faces = function(o) {
+          
+          var ret = zappar.face_tracker_max_faces(o);
+          return ret;
+      };
+  	_zappar_face_tracker_anchor_count = function(o) {
+          
+          var ret = zappar.face_tracker_anchor_count(o);
+          return ret;
+      };
+  	_zappar_face_tracker_anchor_id = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.face_tracker_anchor_id(o, indx_val);
+          var bufferSize = lengthBytesUTF8(ret) + 1;
+          var buffer = _malloc(bufferSize);
+          stringToUTF8(ret, buffer, bufferSize);
+          return buffer;
+      };
+  	_zappar_face_tracker_anchor_pose_raw = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.face_tracker_anchor_pose_raw(o, indx_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_face_tracker_anchor_pose_camera_relative = function(o, indx, mirror) {
+          var indx_val = indx;
+  		var mirror_val = mirror;
+          var ret = zappar.face_tracker_anchor_pose_camera_relative(o, indx_val, mirror_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_face_tracker_anchor_pose = function(o, indx, camera_pose, mirror) {
+          var indx_val = indx;
+  		var camera_pose_val = new Float32Array(16);
+          camera_pose_val.set(HEAPF32.subarray(camera_pose/4, 16 + camera_pose / 4));
+  		var mirror_val = mirror;
+          var ret = zappar.face_tracker_anchor_pose(o, indx_val, camera_pose_val, mirror_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_face_tracker_anchor_identity_coefficients = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.face_tracker_anchor_identity_coefficients(o, indx_val);
+          var buffer = _malloc(50 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_face_tracker_anchor_expression_coefficients = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.face_tracker_anchor_expression_coefficients(o, indx_val);
+          var buffer = _malloc(29 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+      
+  	
+      _zappar_face_mesh_create = function() {
+          
+          var ret = zappar.face_mesh_create();
+          return ret;
+      };
+      _zappar_face_mesh_destroy = function(o) {
+          var o_val = o;
+          var ret = zappar.face_mesh_destroy(o_val);
+          return ret;
+      };
+      _zappar_face_mesh_load_from_memory = function(o, data, data_size, fill_mouth, fill_eye_l, fill_eye_r, fill_neck) {
+          var data_val = new Uint8Array(data_size);
+          data_val.set(HEAPU8.subarray(data, data + data_size));
+  		var fill_mouth_val = fill_mouth;
+  		var fill_eye_l_val = fill_eye_l;
+  		var fill_eye_r_val = fill_eye_r;
+  		var fill_neck_val = fill_neck;
+          var ret = zappar.face_mesh_load_from_memory(o, data_val, fill_mouth_val, fill_eye_l_val, fill_eye_r_val, fill_neck_val);
+          return ret;
+      };
+  	_zappar_face_mesh_load_default = function(o) {
+          
+          var ret = zappar.face_mesh_load_default(o);
+          return ret;
+      };
+  	_zappar_face_mesh_load_default_full_head_simplified = function(o, fill_mouth, fill_eye_l, fill_eye_r, fill_neck) {
+          var fill_mouth_val = fill_mouth;
+  		var fill_eye_l_val = fill_eye_l;
+  		var fill_eye_r_val = fill_eye_r;
+  		var fill_neck_val = fill_neck;
+          var ret = zappar.face_mesh_load_default_full_head_simplified(o, fill_mouth_val, fill_eye_l_val, fill_eye_r_val, fill_neck_val);
+          return ret;
+      };
+  	_zappar_face_mesh_load_default_face = function(o, fill_eye_l, fill_eye_r, fill_mouth) {
+          var fill_eye_l_val = fill_eye_l;
+  		var fill_eye_r_val = fill_eye_r;
+  		var fill_mouth_val = fill_mouth;
+          var ret = zappar.face_mesh_load_default_face(o, fill_eye_l_val, fill_eye_r_val, fill_mouth_val);
+          return ret;
+      };
+  	_zappar_face_mesh_loaded_version = function(o) {
+          
+          var ret = zappar.face_mesh_loaded_version(o);
+          return ret;
+      };
+  	_zappar_face_mesh_update = function(o, identity, expression, mirrored) {
+          var identity_val = new Float32Array(50);
+          identity_val.set(HEAPF32.subarray(identity/4, 50 + identity / 4));
+  		var expression_val = new Float32Array(29);
+          expression_val.set(HEAPF32.subarray(expression/4, 29 + expression / 4));
+  		var mirrored_val = mirrored;
+          var ret = zappar.face_mesh_update(o, identity_val, expression_val, mirrored_val);
+          return ret;
+      };
+  	_zappar_face_mesh_indices_size = function(o) {
+          
+          var ret = zappar.face_mesh_indices_size(o);
+          return ret;
+      };
+  	_zappar_face_mesh_indices = function(o) {
+          
+          var ret = zappar.face_mesh_indices(o);
+          var n = zappar.face_mesh_indices_size(o);
+          var buffer = _malloc(n * 2);
+          HEAPU16.set(ret, buffer / 2);
+          return buffer;
+      };
+  	_zappar_face_mesh_vertices_size = function(o) {
+          
+          var ret = zappar.face_mesh_vertices_size(o);
+          return ret;
+      };
+  	_zappar_face_mesh_vertices = function(o) {
+          
+          var ret = zappar.face_mesh_vertices(o);
+          var n = zappar.face_mesh_vertices_size(o);
+          var buffer = _malloc(n * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_face_mesh_normals_size = function(o) {
+          
+          var ret = zappar.face_mesh_normals_size(o);
+          return ret;
+      };
+  	_zappar_face_mesh_normals = function(o) {
+          
+          var ret = zappar.face_mesh_normals(o);
+          var n = zappar.face_mesh_normals_size(o);
+          var buffer = _malloc(n * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_face_mesh_uvs_size = function(o) {
+          
+          var ret = zappar.face_mesh_uvs_size(o);
+          return ret;
+      };
+  	_zappar_face_mesh_uvs = function(o) {
+          
+          var ret = zappar.face_mesh_uvs(o);
+          var n = zappar.face_mesh_uvs_size(o);
+          var buffer = _malloc(n * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+      
+  	
+      _zappar_face_landmark_create = function(landmark) {
+          var landmark_val = landmark;
+          var ret = zappar.face_landmark_create(landmark_val);
+          return ret;
+      };
+      _zappar_face_landmark_destroy = function(o) {
+          var o_val = o;
+          var ret = zappar.face_landmark_destroy(o_val);
+          return ret;
+      };
+      _zappar_face_landmark_update = function(o, identity, expression, mirrored) {
+          var identity_val = new Float32Array(50);
+          identity_val.set(HEAPF32.subarray(identity/4, 50 + identity / 4));
+  		var expression_val = new Float32Array(29);
+          expression_val.set(HEAPF32.subarray(expression/4, 29 + expression / 4));
+  		var mirrored_val = mirrored;
+          var ret = zappar.face_landmark_update(o, identity_val, expression_val, mirrored_val);
+          return ret;
+      };
+  	_zappar_face_landmark_anchor_pose = function(o) {
+          
+          var ret = zappar.face_landmark_anchor_pose(o);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+      
+  	
+      _zappar_barcode_finder_create = function(pipeline) {
+          var pipeline_val = pipeline;
+          var ret = zappar.barcode_finder_create(pipeline_val);
+          return ret;
+      };
+      _zappar_barcode_finder_destroy = function(o) {
+          var o_val = o;
+          var ret = zappar.barcode_finder_destroy(o_val);
+          return ret;
+      };
+      _zappar_barcode_finder_enabled_set = function(o, enabled) {
+          var enabled_val = enabled;
+          var ret = zappar.barcode_finder_enabled_set(o, enabled_val);
+          return ret;
+      };
+  	_zappar_barcode_finder_enabled = function(o) {
+          
+          var ret = zappar.barcode_finder_enabled(o);
+          return ret;
+      };
+  	_zappar_barcode_finder_found_number = function(o) {
+          
+          var ret = zappar.barcode_finder_found_number(o);
+          return ret;
+      };
+  	_zappar_barcode_finder_found_text = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.barcode_finder_found_text(o, indx_val);
+          var bufferSize = lengthBytesUTF8(ret) + 1;
+          var buffer = _malloc(bufferSize);
+          stringToUTF8(ret, buffer, bufferSize);
+          return buffer;
+      };
+  	_zappar_barcode_finder_found_format = function(o, indx) {
+          var indx_val = indx;
+          var ret = zappar.barcode_finder_found_format(o, indx_val);
+          return ret;
+      };
+  	_zappar_barcode_finder_formats = function(o) {
+          
+          var ret = zappar.barcode_finder_formats(o);
+          return ret;
+      };
+  	_zappar_barcode_finder_formats_set = function(o, f) {
+          var f_val = f;
+          var ret = zappar.barcode_finder_formats_set(o, f_val);
+          return ret;
+      };
+      
+  	
+      _zappar_instant_world_tracker_create = function(pipeline) {
+          var pipeline_val = pipeline;
+          var ret = zappar.instant_world_tracker_create(pipeline_val);
+          return ret;
+      };
+      _zappar_instant_world_tracker_destroy = function(o) {
+          var o_val = o;
+          var ret = zappar.instant_world_tracker_destroy(o_val);
+          return ret;
+      };
+      _zappar_instant_world_tracker_enabled_set = function(o, enabled) {
+          var enabled_val = enabled;
+          var ret = zappar.instant_world_tracker_enabled_set(o, enabled_val);
+          return ret;
+      };
+  	_zappar_instant_world_tracker_enabled = function(o) {
+          
+          var ret = zappar.instant_world_tracker_enabled(o);
+          return ret;
+      };
+  	_zappar_instant_world_tracker_anchor_pose_raw = function(o) {
+          
+          var ret = zappar.instant_world_tracker_anchor_pose_raw(o);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_instant_world_tracker_anchor_pose_camera_relative = function(o, mirror) {
+          var mirror_val = mirror;
+          var ret = zappar.instant_world_tracker_anchor_pose_camera_relative(o, mirror_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_instant_world_tracker_anchor_pose = function(o, camera_pose, mirror) {
+          var camera_pose_val = new Float32Array(16);
+          camera_pose_val.set(HEAPF32.subarray(camera_pose/4, 16 + camera_pose / 4));
+  		var mirror_val = mirror;
+          var ret = zappar.instant_world_tracker_anchor_pose(o, camera_pose_val, mirror_val);
+          var buffer = _malloc(16 * 4);
+          HEAPF32.set(ret, buffer / 4);
+          return buffer;
+      };
+  	_zappar_instant_world_tracker_anchor_pose_set_from_camera_offset_raw = function(o, x, y, z, orientation) {
+          var x_val = x;
+  		var y_val = y;
+  		var z_val = z;
+  		var orientation_val = orientation;
+          var ret = zappar.instant_world_tracker_anchor_pose_set_from_camera_offset_raw(o, x_val, y_val, z_val, orientation_val);
+          return ret;
+      };
+  	_zappar_instant_world_tracker_anchor_pose_set_from_camera_offset = function(o, x, y, z, orientation) {
+          var x_val = x;
+  		var y_val = y;
+  		var z_val = z;
+  		var orientation_val = orientation;
+          var ret = zappar.instant_world_tracker_anchor_pose_set_from_camera_offset(o, x_val, y_val, z_val, orientation_val);
+          return ret;
+      };
+      
+  
+      }());
+  ;
 var ASSERTIONS = true;
 
 
@@ -15228,17 +16469,15 @@ var asmLibraryArg = {
   "JS_Sound_SetPosition": _JS_Sound_SetPosition,
   "JS_Sound_SetVolume": _JS_Sound_SetVolume,
   "JS_Sound_Stop": _JS_Sound_Stop,
-  "JS_SystemInfo_GetBrowserName": _JS_SystemInfo_GetBrowserName,
-  "JS_SystemInfo_GetBrowserVersionString": _JS_SystemInfo_GetBrowserVersionString,
   "JS_SystemInfo_GetCanvasClientSize": _JS_SystemInfo_GetCanvasClientSize,
   "JS_SystemInfo_GetDocumentURL": _JS_SystemInfo_GetDocumentURL,
   "JS_SystemInfo_GetGPUInfo": _JS_SystemInfo_GetGPUInfo,
-  "JS_SystemInfo_GetLanguage": _JS_SystemInfo_GetLanguage,
   "JS_SystemInfo_GetMatchWebGLToCanvasSize": _JS_SystemInfo_GetMatchWebGLToCanvasSize,
   "JS_SystemInfo_GetMemory": _JS_SystemInfo_GetMemory,
   "JS_SystemInfo_GetOS": _JS_SystemInfo_GetOS,
   "JS_SystemInfo_GetPreferredDevicePixelRatio": _JS_SystemInfo_GetPreferredDevicePixelRatio,
   "JS_SystemInfo_GetScreenSize": _JS_SystemInfo_GetScreenSize,
+  "JS_SystemInfo_GetStreamingAssetsURL": _JS_SystemInfo_GetStreamingAssetsURL,
   "JS_SystemInfo_HasAstcHdr": _JS_SystemInfo_HasAstcHdr,
   "JS_SystemInfo_HasCursorLock": _JS_SystemInfo_HasCursorLock,
   "JS_SystemInfo_HasFullscreen": _JS_SystemInfo_HasFullscreen,
@@ -15445,6 +16684,7 @@ var asmLibraryArg = {
   "glGetActiveUniformBlockiv": _glGetActiveUniformBlockiv,
   "glGetActiveUniformsiv": _glGetActiveUniformsiv,
   "glGetAttribLocation": _glGetAttribLocation,
+  "glGetBufferParameteriv": _glGetBufferParameteriv,
   "glGetBufferSubData": _glGetBufferSubData,
   "glGetError": _glGetError,
   "glGetFramebufferAttachmentParameteriv": _glGetFramebufferAttachmentParameteriv,
@@ -15522,14 +16762,12 @@ var asmLibraryArg = {
   "glVertexAttribPointer": _glVertexAttribPointer,
   "glViewport": _glViewport,
   "invoke_ddiii": invoke_ddiii,
-  "invoke_di": invoke_di,
   "invoke_dii": invoke_dii,
   "invoke_diii": invoke_diii,
   "invoke_fffi": invoke_fffi,
   "invoke_fi": invoke_fi,
   "invoke_fii": invoke_fii,
   "invoke_fiii": invoke_fiii,
-  "invoke_fiiii": invoke_fiiii,
   "invoke_i": invoke_i,
   "invoke_ii": invoke_ii,
   "invoke_iifi": invoke_iifi,
@@ -15538,10 +16776,10 @@ var asmLibraryArg = {
   "invoke_iiifii": invoke_iiifii,
   "invoke_iiii": invoke_iiii,
   "invoke_iiiidii": invoke_iiiidii,
+  "invoke_iiiifii": invoke_iiiifii,
   "invoke_iiiii": invoke_iiiii,
   "invoke_iiiiii": invoke_iiiiii,
   "invoke_iiiiiii": invoke_iiiiiii,
-  "invoke_iiiiiiidii": invoke_iiiiiiidii,
   "invoke_iiiiiiii": invoke_iiiiiiii,
   "invoke_iiiiiiiii": invoke_iiiiiiiii,
   "invoke_iiiiiiiiii": invoke_iiiiiiiiii,
@@ -15556,36 +16794,30 @@ var asmLibraryArg = {
   "invoke_iijiii": invoke_iijiii,
   "invoke_iijji": invoke_iijji,
   "invoke_iji": invoke_iji,
-  "invoke_ijii": invoke_ijii,
   "invoke_ijji": invoke_ijji,
   "invoke_j": invoke_j,
   "invoke_ji": invoke_ji,
   "invoke_jii": invoke_jii,
   "invoke_jiii": invoke_jiii,
   "invoke_jiiiii": invoke_jiiiii,
-  "invoke_jiiiiiii": invoke_jiiiiiii,
   "invoke_jiiiiiiiiii": invoke_jiiiiiiiiii,
   "invoke_jiji": invoke_jiji,
   "invoke_jijii": invoke_jijii,
-  "invoke_jjiiiiiiiiii": invoke_jjiiiiiiiiii,
   "invoke_jjji": invoke_jjji,
   "invoke_v": invoke_v,
   "invoke_vi": invoke_vi,
+  "invoke_vidd": invoke_vidd,
   "invoke_vidi": invoke_vidi,
   "invoke_viffi": invoke_viffi,
   "invoke_vifi": invoke_vifi,
   "invoke_vifii": invoke_vifii,
   "invoke_vii": invoke_vii,
   "invoke_viidi": invoke_viidi,
-  "invoke_viidiji": invoke_viidiji,
   "invoke_viiffi": invoke_viiffi,
   "invoke_viifi": invoke_viifi,
   "invoke_viifii": invoke_viifii,
-  "invoke_viifiii": invoke_viifiii,
   "invoke_viii": invoke_viii,
-  "invoke_viiifii": invoke_viiifii,
   "invoke_viiii": invoke_viiii,
-  "invoke_viiiidi": invoke_viiiidi,
   "invoke_viiiifi": invoke_viiiifi,
   "invoke_viiiii": invoke_viiiii,
   "invoke_viiiiii": invoke_viiiiii,
@@ -15595,7 +16827,6 @@ var asmLibraryArg = {
   "invoke_viiiiiiiiii": invoke_viiiiiiiiii,
   "invoke_viiiji": invoke_viiiji,
   "invoke_viiji": invoke_viiji,
-  "invoke_viijii": invoke_viijii,
   "invoke_viji": invoke_viji,
   "invoke_vijii": invoke_vijii,
   "invoke_vijiii": invoke_vijiii,
@@ -15604,7 +16835,164 @@ var asmLibraryArg = {
   "invoke_vjjjiiii": invoke_vjjjiiii,
   "llvm_eh_typeid_for": _llvm_eh_typeid_for,
   "setTempRet0": _setTempRet0,
-  "strftime": _strftime
+  "strftime": _strftime,
+  "zappar_analytics_project_id_set": _zappar_analytics_project_id_set,
+  "zappar_barcode_finder_create": _zappar_barcode_finder_create,
+  "zappar_barcode_finder_destroy": _zappar_barcode_finder_destroy,
+  "zappar_barcode_finder_enabled": _zappar_barcode_finder_enabled,
+  "zappar_barcode_finder_enabled_set": _zappar_barcode_finder_enabled_set,
+  "zappar_barcode_finder_formats": _zappar_barcode_finder_formats,
+  "zappar_barcode_finder_formats_set": _zappar_barcode_finder_formats_set,
+  "zappar_barcode_finder_found_format": _zappar_barcode_finder_found_format,
+  "zappar_barcode_finder_found_number": _zappar_barcode_finder_found_number,
+  "zappar_barcode_finder_found_text": _zappar_barcode_finder_found_text,
+  "zappar_camera_count": _zappar_camera_count,
+  "zappar_camera_default_device_id": _zappar_camera_default_device_id,
+  "zappar_camera_id": _zappar_camera_id,
+  "zappar_camera_name": _zappar_camera_name,
+  "zappar_camera_source_create": _zappar_camera_source_create,
+  "zappar_camera_source_destroy": _zappar_camera_source_destroy,
+  "zappar_camera_source_pause": _zappar_camera_source_pause,
+  "zappar_camera_source_start": _zappar_camera_source_start,
+  "zappar_camera_user_facing": _zappar_camera_user_facing,
+  "zappar_face_landmark_anchor_pose": _zappar_face_landmark_anchor_pose,
+  "zappar_face_landmark_create": _zappar_face_landmark_create,
+  "zappar_face_landmark_destroy": _zappar_face_landmark_destroy,
+  "zappar_face_landmark_update": _zappar_face_landmark_update,
+  "zappar_face_mesh_create": _zappar_face_mesh_create,
+  "zappar_face_mesh_destroy": _zappar_face_mesh_destroy,
+  "zappar_face_mesh_indices": _zappar_face_mesh_indices,
+  "zappar_face_mesh_indices_size": _zappar_face_mesh_indices_size,
+  "zappar_face_mesh_load_default": _zappar_face_mesh_load_default,
+  "zappar_face_mesh_load_default_face": _zappar_face_mesh_load_default_face,
+  "zappar_face_mesh_load_default_full_head_simplified": _zappar_face_mesh_load_default_full_head_simplified,
+  "zappar_face_mesh_load_from_memory": _zappar_face_mesh_load_from_memory,
+  "zappar_face_mesh_loaded_version": _zappar_face_mesh_loaded_version,
+  "zappar_face_mesh_normals": _zappar_face_mesh_normals,
+  "zappar_face_mesh_normals_size": _zappar_face_mesh_normals_size,
+  "zappar_face_mesh_update": _zappar_face_mesh_update,
+  "zappar_face_mesh_uvs": _zappar_face_mesh_uvs,
+  "zappar_face_mesh_uvs_size": _zappar_face_mesh_uvs_size,
+  "zappar_face_mesh_vertices": _zappar_face_mesh_vertices,
+  "zappar_face_mesh_vertices_size": _zappar_face_mesh_vertices_size,
+  "zappar_face_tracker_anchor_count": _zappar_face_tracker_anchor_count,
+  "zappar_face_tracker_anchor_expression_coefficients": _zappar_face_tracker_anchor_expression_coefficients,
+  "zappar_face_tracker_anchor_id": _zappar_face_tracker_anchor_id,
+  "zappar_face_tracker_anchor_identity_coefficients": _zappar_face_tracker_anchor_identity_coefficients,
+  "zappar_face_tracker_anchor_pose": _zappar_face_tracker_anchor_pose,
+  "zappar_face_tracker_anchor_pose_camera_relative": _zappar_face_tracker_anchor_pose_camera_relative,
+  "zappar_face_tracker_anchor_pose_raw": _zappar_face_tracker_anchor_pose_raw,
+  "zappar_face_tracker_create": _zappar_face_tracker_create,
+  "zappar_face_tracker_destroy": _zappar_face_tracker_destroy,
+  "zappar_face_tracker_enabled": _zappar_face_tracker_enabled,
+  "zappar_face_tracker_enabled_set": _zappar_face_tracker_enabled_set,
+  "zappar_face_tracker_max_faces": _zappar_face_tracker_max_faces,
+  "zappar_face_tracker_max_faces_set": _zappar_face_tracker_max_faces_set,
+  "zappar_face_tracker_model_load_default": _zappar_face_tracker_model_load_default,
+  "zappar_face_tracker_model_load_from_memory": _zappar_face_tracker_model_load_from_memory,
+  "zappar_face_tracker_model_loaded_version": _zappar_face_tracker_model_loaded_version,
+  "zappar_has_initialized": _zappar_has_initialized,
+  "zappar_image_tracker_anchor_count": _zappar_image_tracker_anchor_count,
+  "zappar_image_tracker_anchor_id": _zappar_image_tracker_anchor_id,
+  "zappar_image_tracker_anchor_pose": _zappar_image_tracker_anchor_pose,
+  "zappar_image_tracker_anchor_pose_camera_relative": _zappar_image_tracker_anchor_pose_camera_relative,
+  "zappar_image_tracker_anchor_pose_raw": _zappar_image_tracker_anchor_pose_raw,
+  "zappar_image_tracker_create": _zappar_image_tracker_create,
+  "zappar_image_tracker_destroy": _zappar_image_tracker_destroy,
+  "zappar_image_tracker_enabled": _zappar_image_tracker_enabled,
+  "zappar_image_tracker_enabled_set": _zappar_image_tracker_enabled_set,
+  "zappar_image_tracker_target_count": _zappar_image_tracker_target_count,
+  "zappar_image_tracker_target_load_from_memory": _zappar_image_tracker_target_load_from_memory,
+  "zappar_image_tracker_target_loaded_version": _zappar_image_tracker_target_loaded_version,
+  "zappar_image_tracker_target_physical_scale_factor": _zappar_image_tracker_target_physical_scale_factor,
+  "zappar_image_tracker_target_preview_compressed": _zappar_image_tracker_target_preview_compressed,
+  "zappar_image_tracker_target_preview_compressed_mimetype": _zappar_image_tracker_target_preview_compressed_mimetype,
+  "zappar_image_tracker_target_preview_compressed_size": _zappar_image_tracker_target_preview_compressed_size,
+  "zappar_image_tracker_target_preview_mesh_indices": _zappar_image_tracker_target_preview_mesh_indices,
+  "zappar_image_tracker_target_preview_mesh_indices_size": _zappar_image_tracker_target_preview_mesh_indices_size,
+  "zappar_image_tracker_target_preview_mesh_normals": _zappar_image_tracker_target_preview_mesh_normals,
+  "zappar_image_tracker_target_preview_mesh_normals_size": _zappar_image_tracker_target_preview_mesh_normals_size,
+  "zappar_image_tracker_target_preview_mesh_uvs": _zappar_image_tracker_target_preview_mesh_uvs,
+  "zappar_image_tracker_target_preview_mesh_uvs_size": _zappar_image_tracker_target_preview_mesh_uvs_size,
+  "zappar_image_tracker_target_preview_mesh_vertices": _zappar_image_tracker_target_preview_mesh_vertices,
+  "zappar_image_tracker_target_preview_mesh_vertices_size": _zappar_image_tracker_target_preview_mesh_vertices_size,
+  "zappar_image_tracker_target_preview_rgba": _zappar_image_tracker_target_preview_rgba,
+  "zappar_image_tracker_target_preview_rgba_height": _zappar_image_tracker_target_preview_rgba_height,
+  "zappar_image_tracker_target_preview_rgba_size": _zappar_image_tracker_target_preview_rgba_size,
+  "zappar_image_tracker_target_preview_rgba_width": _zappar_image_tracker_target_preview_rgba_width,
+  "zappar_image_tracker_target_radius_bottom": _zappar_image_tracker_target_radius_bottom,
+  "zappar_image_tracker_target_radius_top": _zappar_image_tracker_target_radius_top,
+  "zappar_image_tracker_target_side_length": _zappar_image_tracker_target_side_length,
+  "zappar_image_tracker_target_type": _zappar_image_tracker_target_type,
+  "zappar_initialize": _zappar_initialize,
+  "zappar_instant_world_tracker_anchor_pose": _zappar_instant_world_tracker_anchor_pose,
+  "zappar_instant_world_tracker_anchor_pose_camera_relative": _zappar_instant_world_tracker_anchor_pose_camera_relative,
+  "zappar_instant_world_tracker_anchor_pose_raw": _zappar_instant_world_tracker_anchor_pose_raw,
+  "zappar_instant_world_tracker_anchor_pose_set_from_camera_offset": _zappar_instant_world_tracker_anchor_pose_set_from_camera_offset,
+  "zappar_instant_world_tracker_anchor_pose_set_from_camera_offset_raw": _zappar_instant_world_tracker_anchor_pose_set_from_camera_offset_raw,
+  "zappar_instant_world_tracker_create": _zappar_instant_world_tracker_create,
+  "zappar_instant_world_tracker_destroy": _zappar_instant_world_tracker_destroy,
+  "zappar_instant_world_tracker_enabled": _zappar_instant_world_tracker_enabled,
+  "zappar_instant_world_tracker_enabled_set": _zappar_instant_world_tracker_enabled_set,
+  "zappar_is_visible_webgl": _zappar_is_visible_webgl,
+  "zappar_issue_js_plugin_face_mesh_normals": zappar_issue_js_plugin_face_mesh_normals,
+  "zappar_issue_js_plugin_face_mesh_normals_size": zappar_issue_js_plugin_face_mesh_normals_size,
+  "zappar_issue_js_plugin_face_mesh_uvs": zappar_issue_js_plugin_face_mesh_uvs,
+  "zappar_issue_js_plugin_face_mesh_uvs_size": zappar_issue_js_plugin_face_mesh_uvs_size,
+  "zappar_issue_js_plugin_face_mesh_vertices": zappar_issue_js_plugin_face_mesh_vertices,
+  "zappar_issue_js_plugin_face_mesh_vertices_size": zappar_issue_js_plugin_face_mesh_vertices_size,
+  "zappar_issue_js_plugin_render_event": zappar_issue_js_plugin_render_event,
+  "zappar_issue_js_plugin_upload_gl_event": zappar_issue_js_plugin_upload_gl_event,
+  "zappar_loaded": _zappar_loaded,
+  "zappar_log_level_set": _zappar_log_level_set,
+  "zappar_permission_denied_any": _zappar_permission_denied_any,
+  "zappar_permission_denied_camera": _zappar_permission_denied_camera,
+  "zappar_permission_denied_motion": _zappar_permission_denied_motion,
+  "zappar_permission_denied_ui": _zappar_permission_denied_ui,
+  "zappar_permission_granted_all": _zappar_permission_granted_all,
+  "zappar_permission_granted_camera": _zappar_permission_granted_camera,
+  "zappar_permission_granted_motion": _zappar_permission_granted_motion,
+  "zappar_permission_request_all": _zappar_permission_request_all,
+  "zappar_permission_request_camera": _zappar_permission_request_camera,
+  "zappar_permission_request_motion": _zappar_permission_request_motion,
+  "zappar_permission_request_ui": _zappar_permission_request_ui,
+  "zappar_pipeline_camera_frame_camera_attitude": _zappar_pipeline_camera_frame_camera_attitude,
+  "zappar_pipeline_camera_frame_device_attitude": _zappar_pipeline_camera_frame_device_attitude,
+  "zappar_pipeline_camera_frame_submit": _zappar_pipeline_camera_frame_submit,
+  "zappar_pipeline_camera_frame_texture_dx11": _zappar_pipeline_camera_frame_texture_dx11,
+  "zappar_pipeline_camera_frame_texture_gl": _zappar_pipeline_camera_frame_texture_gl,
+  "zappar_pipeline_camera_frame_texture_matrix": _zappar_pipeline_camera_frame_texture_matrix,
+  "zappar_pipeline_camera_frame_texture_metal": _zappar_pipeline_camera_frame_texture_metal,
+  "zappar_pipeline_camera_frame_user_data": _zappar_pipeline_camera_frame_user_data,
+  "zappar_pipeline_camera_frame_user_facing": _zappar_pipeline_camera_frame_user_facing,
+  "zappar_pipeline_camera_model": _zappar_pipeline_camera_model,
+  "zappar_pipeline_camera_pose_default": _zappar_pipeline_camera_pose_default,
+  "zappar_pipeline_camera_pose_with_attitude": _zappar_pipeline_camera_pose_with_attitude,
+  "zappar_pipeline_camera_pose_with_origin": _zappar_pipeline_camera_pose_with_origin,
+  "zappar_pipeline_create": _zappar_pipeline_create,
+  "zappar_pipeline_destroy": _zappar_pipeline_destroy,
+  "zappar_pipeline_frame_number": _zappar_pipeline_frame_number,
+  "zappar_pipeline_frame_update": _zappar_pipeline_frame_update,
+  "zappar_pipeline_gl_context_set": _zappar_pipeline_gl_context_set,
+  "zappar_pipeline_motion_accelerometer_submit": _zappar_pipeline_motion_accelerometer_submit,
+  "zappar_pipeline_motion_attitude_matrix_submit": _zappar_pipeline_motion_attitude_matrix_submit,
+  "zappar_pipeline_motion_attitude_submit": _zappar_pipeline_motion_attitude_submit,
+  "zappar_pipeline_motion_rotation_rate_submit": _zappar_pipeline_motion_rotation_rate_submit,
+  "zappar_pipeline_sequence_record_clear": _zappar_pipeline_sequence_record_clear,
+  "zappar_pipeline_sequence_record_data": _zappar_pipeline_sequence_record_data,
+  "zappar_pipeline_sequence_record_data_size": _zappar_pipeline_sequence_record_data_size,
+  "zappar_pipeline_sequence_record_device_attitude_matrices_set": _zappar_pipeline_sequence_record_device_attitude_matrices_set,
+  "zappar_pipeline_sequence_record_start": _zappar_pipeline_sequence_record_start,
+  "zappar_pipeline_sequence_record_stop": _zappar_pipeline_sequence_record_stop,
+  "zappar_pipeline_set": _zappar_pipeline_set,
+  "zappar_projection_matrix_from_camera_model": _zappar_projection_matrix_from_camera_model,
+  "zappar_projection_matrix_from_camera_model_ext": _zappar_projection_matrix_from_camera_model_ext,
+  "zappar_sequence_source_create": _zappar_sequence_source_create,
+  "zappar_sequence_source_destroy": _zappar_sequence_source_destroy,
+  "zappar_sequence_source_load_from_memory": _zappar_sequence_source_load_from_memory,
+  "zappar_sequence_source_max_playback_fps_set": _zappar_sequence_source_max_playback_fps_set,
+  "zappar_sequence_source_pause": _zappar_sequence_source_pause,
+  "zappar_sequence_source_start": _zappar_sequence_source_start
 };
 var asm = createWasm();
 /** @type {function(...*):?} */
@@ -15766,193 +17154,10 @@ var dynCall_iiiiiii = Module["dynCall_iiiiiii"] = createExportWrapper("dynCall_i
 var dynCall_jii = Module["dynCall_jii"] = createExportWrapper("dynCall_jii");
 
 /** @type {function(...*):?} */
-var dynCall_vifi = Module["dynCall_vifi"] = createExportWrapper("dynCall_vifi");
-
-/** @type {function(...*):?} */
-var dynCall_viji = Module["dynCall_viji"] = createExportWrapper("dynCall_viji");
-
-/** @type {function(...*):?} */
 var dynCall_viifi = Module["dynCall_viifi"] = createExportWrapper("dynCall_viifi");
 
 /** @type {function(...*):?} */
-var dynCall_viidiji = Module["dynCall_viidiji"] = createExportWrapper("dynCall_viidiji");
-
-/** @type {function(...*):?} */
-var dynCall_viidjii = Module["dynCall_viidjii"] = createExportWrapper("dynCall_viidjii");
-
-/** @type {function(...*):?} */
-var dynCall_viiiiiiii = Module["dynCall_viiiiiiii"] = createExportWrapper("dynCall_viiiiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_viiiiiiiiii = Module["dynCall_viiiiiiiiii"] = createExportWrapper("dynCall_viiiiiiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_vidi = Module["dynCall_vidi"] = createExportWrapper("dynCall_vidi");
-
-/** @type {function(...*):?} */
-var dynCall_viidi = Module["dynCall_viidi"] = createExportWrapper("dynCall_viidi");
-
-/** @type {function(...*):?} */
-var dynCall_iiiijii = Module["dynCall_iiiijii"] = createExportWrapper("dynCall_iiiijii");
-
-/** @type {function(...*):?} */
-var dynCall_iiiiiiiiii = Module["dynCall_iiiiiiiiii"] = createExportWrapper("dynCall_iiiiiiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_ijii = Module["dynCall_ijii"] = createExportWrapper("dynCall_ijii");
-
-/** @type {function(...*):?} */
-var dynCall_iifi = Module["dynCall_iifi"] = createExportWrapper("dynCall_iifi");
-
-/** @type {function(...*):?} */
-var dynCall_viiji = Module["dynCall_viiji"] = createExportWrapper("dynCall_viiji");
-
-/** @type {function(...*):?} */
-var dynCall_viiifii = Module["dynCall_viiifii"] = createExportWrapper("dynCall_viiifii");
-
-/** @type {function(...*):?} */
-var dynCall_viifiii = Module["dynCall_viifiii"] = createExportWrapper("dynCall_viifiii");
-
-/** @type {function(...*):?} */
-var dynCall_fiii = Module["dynCall_fiii"] = createExportWrapper("dynCall_fiii");
-
-/** @type {function(...*):?} */
-var dynCall_vifii = Module["dynCall_vifii"] = createExportWrapper("dynCall_vifii");
-
-/** @type {function(...*):?} */
-var dynCall_viiiji = Module["dynCall_viiiji"] = createExportWrapper("dynCall_viiiji");
-
-/** @type {function(...*):?} */
-var dynCall_viiiiiii = Module["dynCall_viiiiiii"] = createExportWrapper("dynCall_viiiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_iiiifi = Module["dynCall_iiiifi"] = createExportWrapper("dynCall_iiiifi");
-
-/** @type {function(...*):?} */
-var dynCall_fffi = Module["dynCall_fffi"] = createExportWrapper("dynCall_fffi");
-
-/** @type {function(...*):?} */
-var dynCall_viifii = Module["dynCall_viifii"] = createExportWrapper("dynCall_viifii");
-
-/** @type {function(...*):?} */
-var dynCall_viiffi = Module["dynCall_viiffi"] = createExportWrapper("dynCall_viiffi");
-
-/** @type {function(...*):?} */
-var dynCall_iiiifii = Module["dynCall_iiiifii"] = createExportWrapper("dynCall_iiiifii");
-
-/** @type {function(...*):?} */
 var dynCall_iiifii = Module["dynCall_iiifii"] = createExportWrapper("dynCall_iiifii");
-
-/** @type {function(...*):?} */
-var dynCall_viiiifii = Module["dynCall_viiiifii"] = createExportWrapper("dynCall_viiiifii");
-
-/** @type {function(...*):?} */
-var dynCall_viiiidi = Module["dynCall_viiiidi"] = createExportWrapper("dynCall_viiiidi");
-
-/** @type {function(...*):?} */
-var dynCall_iiiiiiiii = Module["dynCall_iiiiiiiii"] = createExportWrapper("dynCall_iiiiiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_iiiiiiidii = Module["dynCall_iiiiiiidii"] = createExportWrapper("dynCall_iiiiiiidii");
-
-/** @type {function(...*):?} */
-var dynCall_dii = Module["dynCall_dii"] = createExportWrapper("dynCall_dii");
-
-/** @type {function(...*):?} */
-var dynCall_ji = Module["dynCall_ji"] = createExportWrapper("dynCall_ji");
-
-/** @type {function(...*):?} */
-var dynCall_viijjii = Module["dynCall_viijjii"] = createExportWrapper("dynCall_viijjii");
-
-/** @type {function(...*):?} */
-var dynCall_jjiiiiiiiiii = Module["dynCall_jjiiiiiiiiii"] = createExportWrapper("dynCall_jjiiiiiiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_fi = Module["dynCall_fi"] = createExportWrapper("dynCall_fi");
-
-/** @type {function(...*):?} */
-var dynCall_jiii = Module["dynCall_jiii"] = createExportWrapper("dynCall_jiii");
-
-/** @type {function(...*):?} */
-var dynCall_fii = Module["dynCall_fii"] = createExportWrapper("dynCall_fii");
-
-/** @type {function(...*):?} */
-var dynCall_di = Module["dynCall_di"] = createExportWrapper("dynCall_di");
-
-/** @type {function(...*):?} */
-var dynCall_viiiifi = Module["dynCall_viiiifi"] = createExportWrapper("dynCall_viiiifi");
-
-/** @type {function(...*):?} */
-var dynCall_viijii = Module["dynCall_viijii"] = createExportWrapper("dynCall_viijii");
-
-/** @type {function(...*):?} */
-var dynCall_vijii = Module["dynCall_vijii"] = createExportWrapper("dynCall_vijii");
-
-/** @type {function(...*):?} */
-var dynCall_iijiii = Module["dynCall_iijiii"] = createExportWrapper("dynCall_iijiii");
-
-/** @type {function(...*):?} */
-var dynCall_iiiiiiiiiji = Module["dynCall_iiiiiiiiiji"] = createExportWrapper("dynCall_iiiiiiiiiji");
-
-/** @type {function(...*):?} */
-var dynCall_vji = Module["dynCall_vji"] = createExportWrapper("dynCall_vji");
-
-/** @type {function(...*):?} */
-var dynCall_iiiidii = Module["dynCall_iiiidii"] = createExportWrapper("dynCall_iiiidii");
-
-/** @type {function(...*):?} */
-var dynCall_iiji = Module["dynCall_iiji"] = createExportWrapper("dynCall_iiji");
-
-/** @type {function(...*):?} */
-var dynCall_iiiiiiiiiiii = Module["dynCall_iiiiiiiiiiii"] = createExportWrapper("dynCall_iiiiiiiiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_fiiffi = Module["dynCall_fiiffi"] = createExportWrapper("dynCall_fiiffi");
-
-/** @type {function(...*):?} */
-var dynCall_viiififii = Module["dynCall_viiififii"] = createExportWrapper("dynCall_viiififii");
-
-/** @type {function(...*):?} */
-var dynCall_didi = Module["dynCall_didi"] = createExportWrapper("dynCall_didi");
-
-/** @type {function(...*):?} */
-var dynCall_fifi = Module["dynCall_fifi"] = createExportWrapper("dynCall_fifi");
-
-/** @type {function(...*):?} */
-var dynCall_iidi = Module["dynCall_iidi"] = createExportWrapper("dynCall_iidi");
-
-/** @type {function(...*):?} */
-var dynCall_iiddi = Module["dynCall_iiddi"] = createExportWrapper("dynCall_iiddi");
-
-/** @type {function(...*):?} */
-var dynCall_iijji = Module["dynCall_iijji"] = createExportWrapper("dynCall_iijji");
-
-/** @type {function(...*):?} */
-var dynCall_iiifi = Module["dynCall_iiifi"] = createExportWrapper("dynCall_iiifi");
-
-/** @type {function(...*):?} */
-var dynCall_diidi = Module["dynCall_diidi"] = createExportWrapper("dynCall_diidi");
-
-/** @type {function(...*):?} */
-var dynCall_fiiii = Module["dynCall_fiiii"] = createExportWrapper("dynCall_fiiii");
-
-/** @type {function(...*):?} */
-var dynCall_jiiji = Module["dynCall_jiiji"] = createExportWrapper("dynCall_jiiji");
-
-/** @type {function(...*):?} */
-var dynCall_fiifi = Module["dynCall_fiifi"] = createExportWrapper("dynCall_fiifi");
-
-/** @type {function(...*):?} */
-var dynCall_iiffi = Module["dynCall_iiffi"] = createExportWrapper("dynCall_iiffi");
-
-/** @type {function(...*):?} */
-var dynCall_iiidii = Module["dynCall_iiidii"] = createExportWrapper("dynCall_iiidii");
-
-/** @type {function(...*):?} */
-var dynCall_ddiii = Module["dynCall_ddiii"] = createExportWrapper("dynCall_ddiii");
-
-/** @type {function(...*):?} */
-var dynCall_ijji = Module["dynCall_ijji"] = createExportWrapper("dynCall_ijji");
 
 /** @type {function(...*):?} */
 var dynCall_iji = Module["dynCall_iji"] = createExportWrapper("dynCall_iji");
@@ -15964,16 +17169,139 @@ var dynCall_jjji = Module["dynCall_jjji"] = createExportWrapper("dynCall_jjji");
 var dynCall_jiiiii = Module["dynCall_jiiiii"] = createExportWrapper("dynCall_jiiiii");
 
 /** @type {function(...*):?} */
-var dynCall_j = Module["dynCall_j"] = createExportWrapper("dynCall_j");
+var dynCall_viiiiiii = Module["dynCall_viiiiiii"] = createExportWrapper("dynCall_viiiiiii");
 
 /** @type {function(...*):?} */
-var dynCall_iijii = Module["dynCall_iijii"] = createExportWrapper("dynCall_iijii");
+var dynCall_iiiiiiiiii = Module["dynCall_iiiiiiiiii"] = createExportWrapper("dynCall_iiiiiiiiii");
 
 /** @type {function(...*):?} */
-var dynCall_viiiiiiiii = Module["dynCall_viiiiiiiii"] = createExportWrapper("dynCall_viiiiiiiii");
+var dynCall_iiiijii = Module["dynCall_iiiijii"] = createExportWrapper("dynCall_iiiijii");
 
 /** @type {function(...*):?} */
-var dynCall_jijii = Module["dynCall_jijii"] = createExportWrapper("dynCall_jijii");
+var dynCall_iiiidii = Module["dynCall_iiiidii"] = createExportWrapper("dynCall_iiiidii");
+
+/** @type {function(...*):?} */
+var dynCall_viiffi = Module["dynCall_viiffi"] = createExportWrapper("dynCall_viiffi");
+
+/** @type {function(...*):?} */
+var dynCall_iiiifii = Module["dynCall_iiiifii"] = createExportWrapper("dynCall_iiiifii");
+
+/** @type {function(...*):?} */
+var dynCall_viiiifii = Module["dynCall_viiiifii"] = createExportWrapper("dynCall_viiiifii");
+
+/** @type {function(...*):?} */
+var dynCall_vifi = Module["dynCall_vifi"] = createExportWrapper("dynCall_vifi");
+
+/** @type {function(...*):?} */
+var dynCall_viiiji = Module["dynCall_viiiji"] = createExportWrapper("dynCall_viiiji");
+
+/** @type {function(...*):?} */
+var dynCall_fiii = Module["dynCall_fiii"] = createExportWrapper("dynCall_fiii");
+
+/** @type {function(...*):?} */
+var dynCall_iiiifi = Module["dynCall_iiiifi"] = createExportWrapper("dynCall_iiiifi");
+
+/** @type {function(...*):?} */
+var dynCall_fi = Module["dynCall_fi"] = createExportWrapper("dynCall_fi");
+
+/** @type {function(...*):?} */
+var dynCall_iiifi = Module["dynCall_iiifi"] = createExportWrapper("dynCall_iiifi");
+
+/** @type {function(...*):?} */
+var dynCall_viiiifi = Module["dynCall_viiiifi"] = createExportWrapper("dynCall_viiiifi");
+
+/** @type {function(...*):?} */
+var dynCall_fii = Module["dynCall_fii"] = createExportWrapper("dynCall_fii");
+
+/** @type {function(...*):?} */
+var dynCall_iiiiiiiiiiii = Module["dynCall_iiiiiiiiiiii"] = createExportWrapper("dynCall_iiiiiiiiiiii");
+
+/** @type {function(...*):?} */
+var dynCall_iifi = Module["dynCall_iifi"] = createExportWrapper("dynCall_iifi");
+
+/** @type {function(...*):?} */
+var dynCall_vifii = Module["dynCall_vifii"] = createExportWrapper("dynCall_vifii");
+
+/** @type {function(...*):?} */
+var dynCall_ji = Module["dynCall_ji"] = createExportWrapper("dynCall_ji");
+
+/** @type {function(...*):?} */
+var dynCall_fffi = Module["dynCall_fffi"] = createExportWrapper("dynCall_fffi");
+
+/** @type {function(...*):?} */
+var dynCall_viifii = Module["dynCall_viifii"] = createExportWrapper("dynCall_viifii");
+
+/** @type {function(...*):?} */
+var dynCall_vidi = Module["dynCall_vidi"] = createExportWrapper("dynCall_vidi");
+
+/** @type {function(...*):?} */
+var dynCall_viidi = Module["dynCall_viidi"] = createExportWrapper("dynCall_viidi");
+
+/** @type {function(...*):?} */
+var dynCall_viiiiiiiiii = Module["dynCall_viiiiiiiiii"] = createExportWrapper("dynCall_viiiiiiiiii");
+
+/** @type {function(...*):?} */
+var dynCall_iiiiiiiiiji = Module["dynCall_iiiiiiiiiji"] = createExportWrapper("dynCall_iiiiiiiiiji");
+
+/** @type {function(...*):?} */
+var dynCall_vji = Module["dynCall_vji"] = createExportWrapper("dynCall_vji");
+
+/** @type {function(...*):?} */
+var dynCall_iidi = Module["dynCall_iidi"] = createExportWrapper("dynCall_iidi");
+
+/** @type {function(...*):?} */
+var dynCall_didi = Module["dynCall_didi"] = createExportWrapper("dynCall_didi");
+
+/** @type {function(...*):?} */
+var dynCall_fifi = Module["dynCall_fifi"] = createExportWrapper("dynCall_fifi");
+
+/** @type {function(...*):?} */
+var dynCall_diidi = Module["dynCall_diidi"] = createExportWrapper("dynCall_diidi");
+
+/** @type {function(...*):?} */
+var dynCall_jiiji = Module["dynCall_jiiji"] = createExportWrapper("dynCall_jiiji");
+
+/** @type {function(...*):?} */
+var dynCall_fiifi = Module["dynCall_fiifi"] = createExportWrapper("dynCall_fiifi");
+
+/** @type {function(...*):?} */
+var dynCall_iiffi = Module["dynCall_iiffi"] = createExportWrapper("dynCall_iiffi");
+
+/** @type {function(...*):?} */
+var dynCall_jiii = Module["dynCall_jiii"] = createExportWrapper("dynCall_jiii");
+
+/** @type {function(...*):?} */
+var dynCall_ijji = Module["dynCall_ijji"] = createExportWrapper("dynCall_ijji");
+
+/** @type {function(...*):?} */
+var dynCall_iijji = Module["dynCall_iijji"] = createExportWrapper("dynCall_iijji");
+
+/** @type {function(...*):?} */
+var dynCall_viiiiiiii = Module["dynCall_viiiiiiii"] = createExportWrapper("dynCall_viiiiiiii");
+
+/** @type {function(...*):?} */
+var dynCall_iiiiiiiii = Module["dynCall_iiiiiiiii"] = createExportWrapper("dynCall_iiiiiiiii");
+
+/** @type {function(...*):?} */
+var dynCall_vijii = Module["dynCall_vijii"] = createExportWrapper("dynCall_vijii");
+
+/** @type {function(...*):?} */
+var dynCall_iijiii = Module["dynCall_iijiii"] = createExportWrapper("dynCall_iijiii");
+
+/** @type {function(...*):?} */
+var dynCall_fiiffi = Module["dynCall_fiiffi"] = createExportWrapper("dynCall_fiiffi");
+
+/** @type {function(...*):?} */
+var dynCall_viiififii = Module["dynCall_viiififii"] = createExportWrapper("dynCall_viiififii");
+
+/** @type {function(...*):?} */
+var dynCall_iiddi = Module["dynCall_iiddi"] = createExportWrapper("dynCall_iiddi");
+
+/** @type {function(...*):?} */
+var dynCall_ddiii = Module["dynCall_ddiii"] = createExportWrapper("dynCall_ddiii");
+
+/** @type {function(...*):?} */
+var dynCall_dii = Module["dynCall_dii"] = createExportWrapper("dynCall_dii");
 
 /** @type {function(...*):?} */
 var dynCall_vijiii = Module["dynCall_vijiii"] = createExportWrapper("dynCall_vijiii");
@@ -15985,7 +17313,76 @@ var dynCall_vjjjiiii = Module["dynCall_vjjjiiii"] = createExportWrapper("dynCall
 var dynCall_vjiiiii = Module["dynCall_vjiiiii"] = createExportWrapper("dynCall_vjiiiii");
 
 /** @type {function(...*):?} */
+var dynCall_viiji = Module["dynCall_viiji"] = createExportWrapper("dynCall_viiji");
+
+/** @type {function(...*):?} */
+var dynCall_iiji = Module["dynCall_iiji"] = createExportWrapper("dynCall_iiji");
+
+/** @type {function(...*):?} */
+var dynCall_viiiiiiiii = Module["dynCall_viiiiiiiii"] = createExportWrapper("dynCall_viiiiiiiii");
+
+/** @type {function(...*):?} */
+var dynCall_jijii = Module["dynCall_jijii"] = createExportWrapper("dynCall_jijii");
+
+/** @type {function(...*):?} */
+var dynCall_j = Module["dynCall_j"] = createExportWrapper("dynCall_j");
+
+/** @type {function(...*):?} */
+var dynCall_iijii = Module["dynCall_iijii"] = createExportWrapper("dynCall_iijii");
+
+/** @type {function(...*):?} */
+var dynCall_viiifii = Module["dynCall_viiifii"] = createExportWrapper("dynCall_viiifii");
+
+/** @type {function(...*):?} */
+var dynCall_viiiiifi = Module["dynCall_viiiiifi"] = createExportWrapper("dynCall_viiiiifi");
+
+/** @type {function(...*):?} */
+var dynCall_ffffffffi = Module["dynCall_ffffffffi"] = createExportWrapper("dynCall_ffffffffi");
+
+/** @type {function(...*):?} */
+var dynCall_fiiii = Module["dynCall_fiiii"] = createExportWrapper("dynCall_fiiii");
+
+/** @type {function(...*):?} */
+var dynCall_viiiifiiiifi = Module["dynCall_viiiifiiiifi"] = createExportWrapper("dynCall_viiiifiiiifi");
+
+/** @type {function(...*):?} */
+var dynCall_ffi = Module["dynCall_ffi"] = createExportWrapper("dynCall_ffi");
+
+/** @type {function(...*):?} */
+var dynCall_ddi = Module["dynCall_ddi"] = createExportWrapper("dynCall_ddi");
+
+/** @type {function(...*):?} */
+var dynCall_dddi = Module["dynCall_dddi"] = createExportWrapper("dynCall_dddi");
+
+/** @type {function(...*):?} */
+var dynCall_ffffi = Module["dynCall_ffffi"] = createExportWrapper("dynCall_ffffi");
+
+/** @type {function(...*):?} */
+var dynCall_viffi = Module["dynCall_viffi"] = createExportWrapper("dynCall_viffi");
+
+/** @type {function(...*):?} */
+var dynCall_iiiiifi = Module["dynCall_iiiiifi"] = createExportWrapper("dynCall_iiiiifi");
+
+/** @type {function(...*):?} */
+var dynCall_fifffffi = Module["dynCall_fifffffi"] = createExportWrapper("dynCall_fifffffi");
+
+/** @type {function(...*):?} */
+var dynCall_viiifi = Module["dynCall_viiifi"] = createExportWrapper("dynCall_viiifi");
+
+/** @type {function(...*):?} */
+var dynCall_viiffii = Module["dynCall_viiffii"] = createExportWrapper("dynCall_viiffii");
+
+/** @type {function(...*):?} */
+var dynCall_iifiii = Module["dynCall_iifiii"] = createExportWrapper("dynCall_iifiii");
+
+/** @type {function(...*):?} */
+var dynCall_iifii = Module["dynCall_iifii"] = createExportWrapper("dynCall_iifii");
+
+/** @type {function(...*):?} */
 var dynCall_iiiji = Module["dynCall_iiiji"] = createExportWrapper("dynCall_iiiji");
+
+/** @type {function(...*):?} */
+var dynCall_viji = Module["dynCall_viji"] = createExportWrapper("dynCall_viji");
 
 /** @type {function(...*):?} */
 var dynCall_viiiiiiiiiiiiii = Module["dynCall_viiiiiiiiiiiiii"] = createExportWrapper("dynCall_viiiiiiiiiiiiii");
@@ -16009,9 +17406,6 @@ var dynCall_ijjiii = Module["dynCall_ijjiii"] = createExportWrapper("dynCall_ijj
 var dynCall_ijiiii = Module["dynCall_ijiiii"] = createExportWrapper("dynCall_ijiiii");
 
 /** @type {function(...*):?} */
-var dynCall_ijiii = Module["dynCall_ijiii"] = createExportWrapper("dynCall_ijiii");
-
-/** @type {function(...*):?} */
 var dynCall_diiiii = Module["dynCall_diiiii"] = createExportWrapper("dynCall_diiiii");
 
 /** @type {function(...*):?} */
@@ -16030,9 +17424,6 @@ var dynCall_vffi = Module["dynCall_vffi"] = createExportWrapper("dynCall_vffi");
 var dynCall_vffffi = Module["dynCall_vffffi"] = createExportWrapper("dynCall_vffffi");
 
 /** @type {function(...*):?} */
-var dynCall_viiifi = Module["dynCall_viiifi"] = createExportWrapper("dynCall_viiifi");
-
-/** @type {function(...*):?} */
 var dynCall_viiiiffi = Module["dynCall_viiiiffi"] = createExportWrapper("dynCall_viiiiffi");
 
 /** @type {function(...*):?} */
@@ -16042,19 +17433,16 @@ var dynCall_viiiffii = Module["dynCall_viiiffii"] = createExportWrapper("dynCall
 var dynCall_vifffi = Module["dynCall_vifffi"] = createExportWrapper("dynCall_vifffi");
 
 /** @type {function(...*):?} */
-var dynCall_viffi = Module["dynCall_viffi"] = createExportWrapper("dynCall_viffi");
+var dynCall_viffffffi = Module["dynCall_viffffffi"] = createExportWrapper("dynCall_viffffffi");
+
+/** @type {function(...*):?} */
+var dynCall_vffffffii = Module["dynCall_vffffffii"] = createExportWrapper("dynCall_vffffffii");
 
 /** @type {function(...*):?} */
 var dynCall_ifi = Module["dynCall_ifi"] = createExportWrapper("dynCall_ifi");
 
 /** @type {function(...*):?} */
 var dynCall_vfiii = Module["dynCall_vfiii"] = createExportWrapper("dynCall_vfiii");
-
-/** @type {function(...*):?} */
-var dynCall_ffi = Module["dynCall_ffi"] = createExportWrapper("dynCall_ffi");
-
-/** @type {function(...*):?} */
-var dynCall_ffffi = Module["dynCall_ffffi"] = createExportWrapper("dynCall_ffffi");
 
 /** @type {function(...*):?} */
 var dynCall_iffi = Module["dynCall_iffi"] = createExportWrapper("dynCall_iffi");
@@ -16067,12 +17455,6 @@ var dynCall_fdi = Module["dynCall_fdi"] = createExportWrapper("dynCall_fdi");
 
 /** @type {function(...*):?} */
 var dynCall_idi = Module["dynCall_idi"] = createExportWrapper("dynCall_idi");
-
-/** @type {function(...*):?} */
-var dynCall_dddi = Module["dynCall_dddi"] = createExportWrapper("dynCall_dddi");
-
-/** @type {function(...*):?} */
-var dynCall_ddi = Module["dynCall_ddi"] = createExportWrapper("dynCall_ddi");
 
 /** @type {function(...*):?} */
 var dynCall_vfii = Module["dynCall_vfii"] = createExportWrapper("dynCall_vfii");
@@ -16090,16 +17472,7 @@ var dynCall_jjjji = Module["dynCall_jjjji"] = createExportWrapper("dynCall_jjjji
 var dynCall_vjiiii = Module["dynCall_vjiiii"] = createExportWrapper("dynCall_vjiiii");
 
 /** @type {function(...*):?} */
-var dynCall_iiiifiiiiii = Module["dynCall_iiiifiiiiii"] = createExportWrapper("dynCall_iiiifiiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_iiiifiiiii = Module["dynCall_iiiifiiiii"] = createExportWrapper("dynCall_iiiifiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_iiiifiiii = Module["dynCall_iiiifiiii"] = createExportWrapper("dynCall_iiiifiiii");
-
-/** @type {function(...*):?} */
-var dynCall_iiiifiii = Module["dynCall_iiiifiii"] = createExportWrapper("dynCall_iiiifiii");
+var dynCall_vifffii = Module["dynCall_vifffii"] = createExportWrapper("dynCall_vifffii");
 
 /** @type {function(...*):?} */
 var dynCall_vijjii = Module["dynCall_vijjii"] = createExportWrapper("dynCall_vijjii");
@@ -16108,16 +17481,31 @@ var dynCall_vijjii = Module["dynCall_vijjii"] = createExportWrapper("dynCall_vij
 var dynCall_viiiiiiiijijiii = Module["dynCall_viiiiiiiijijiii"] = createExportWrapper("dynCall_viiiiiiiijijiii");
 
 /** @type {function(...*):?} */
+var dynCall_viiiififfi = Module["dynCall_viiiififfi"] = createExportWrapper("dynCall_viiiififfi");
+
+/** @type {function(...*):?} */
+var dynCall_viiiifiifi = Module["dynCall_viiiifiifi"] = createExportWrapper("dynCall_viiiifiifi");
+
+/** @type {function(...*):?} */
+var dynCall_viiiifiiii = Module["dynCall_viiiifiiii"] = createExportWrapper("dynCall_viiiifiiii");
+
+/** @type {function(...*):?} */
+var dynCall_viiiifiiiii = Module["dynCall_viiiifiiiii"] = createExportWrapper("dynCall_viiiifiiiii");
+
+/** @type {function(...*):?} */
+var dynCall_viiiifiiiiiiii = Module["dynCall_viiiifiiiiiiii"] = createExportWrapper("dynCall_viiiifiiiiiiii");
+
+/** @type {function(...*):?} */
+var dynCall_iiifiii = Module["dynCall_iiifiii"] = createExportWrapper("dynCall_iiifiii");
+
+/** @type {function(...*):?} */
 var dynCall_viiiiiffii = Module["dynCall_viiiiiffii"] = createExportWrapper("dynCall_viiiiiffii");
 
 /** @type {function(...*):?} */
 var dynCall_viffffii = Module["dynCall_viffffii"] = createExportWrapper("dynCall_viffffii");
 
 /** @type {function(...*):?} */
-var dynCall_vfi = Module["dynCall_vfi"] = createExportWrapper("dynCall_vfi");
-
-/** @type {function(...*):?} */
-var dynCall_iiifiii = Module["dynCall_iiifiii"] = createExportWrapper("dynCall_iiifiii");
+var dynCall_iiiifiii = Module["dynCall_iiiifiii"] = createExportWrapper("dynCall_iiiifiii");
 
 /** @type {function(...*):?} */
 var dynCall_viiifiii = Module["dynCall_viiifiii"] = createExportWrapper("dynCall_viiifiii");
@@ -16129,15 +17517,6 @@ var dynCall_viiififi = Module["dynCall_viiififi"] = createExportWrapper("dynCall
 var dynCall_viiififfi = Module["dynCall_viiififfi"] = createExportWrapper("dynCall_viiififfi");
 
 /** @type {function(...*):?} */
-var dynCall_iiiiifi = Module["dynCall_iiiiifi"] = createExportWrapper("dynCall_iiiiifi");
-
-/** @type {function(...*):?} */
-var dynCall_iifii = Module["dynCall_iifii"] = createExportWrapper("dynCall_iifii");
-
-/** @type {function(...*):?} */
-var dynCall_iifiii = Module["dynCall_iifiii"] = createExportWrapper("dynCall_iifiii");
-
-/** @type {function(...*):?} */
 var dynCall_iiiiifiii = Module["dynCall_iiiiifiii"] = createExportWrapper("dynCall_iiiiifiii");
 
 /** @type {function(...*):?} */
@@ -16145,9 +17524,6 @@ var dynCall_iiifiiii = Module["dynCall_iiifiiii"] = createExportWrapper("dynCall
 
 /** @type {function(...*):?} */
 var dynCall_vifffffi = Module["dynCall_vifffffi"] = createExportWrapper("dynCall_vifffffi");
-
-/** @type {function(...*):?} */
-var dynCall_viiiiifi = Module["dynCall_viiiiifi"] = createExportWrapper("dynCall_viiiiifi");
 
 /** @type {function(...*):?} */
 var dynCall_viffiiii = Module["dynCall_viffiiii"] = createExportWrapper("dynCall_viffiiii");
@@ -16228,9 +17604,6 @@ var dynCall_viiffiiiiiiiiii = Module["dynCall_viiffiiiiiiiiii"] = createExportWr
 var dynCall_viiffiiiiiii = Module["dynCall_viiffiiiiiii"] = createExportWrapper("dynCall_viiffiiiiiii");
 
 /** @type {function(...*):?} */
-var dynCall_viffffffi = Module["dynCall_viffffffi"] = createExportWrapper("dynCall_viffffffi");
-
-/** @type {function(...*):?} */
 var dynCall_iiiffiiii = Module["dynCall_iiiffiiii"] = createExportWrapper("dynCall_iiiffiiii");
 
 /** @type {function(...*):?} */
@@ -16249,6 +17622,9 @@ var dynCall_diiii = Module["dynCall_diiii"] = createExportWrapper("dynCall_diiii
 var dynCall_jiiii = Module["dynCall_jiiii"] = createExportWrapper("dynCall_jiiii");
 
 /** @type {function(...*):?} */
+var dynCall_ijii = Module["dynCall_ijii"] = createExportWrapper("dynCall_ijii");
+
+/** @type {function(...*):?} */
 var dynCall_vjii = Module["dynCall_vjii"] = createExportWrapper("dynCall_vjii");
 
 /** @type {function(...*):?} */
@@ -16259,6 +17635,9 @@ var dynCall_viiiiiifiiiiii = Module["dynCall_viiiiiifiiiiii"] = createExportWrap
 
 /** @type {function(...*):?} */
 var dynCall_viffffiii = Module["dynCall_viffffiii"] = createExportWrapper("dynCall_viffffiii");
+
+/** @type {function(...*):?} */
+var dynCall_viifiii = Module["dynCall_viifiii"] = createExportWrapper("dynCall_viifiii");
 
 /** @type {function(...*):?} */
 var dynCall_viiiiiiiiiiii = Module["dynCall_viiiiiiiiiiii"] = createExportWrapper("dynCall_viiiiiiiiiiii");
@@ -16276,9 +17655,6 @@ var dynCall_viifiiii = Module["dynCall_viifiiii"] = createExportWrapper("dynCall
 var dynCall_fifii = Module["dynCall_fifii"] = createExportWrapper("dynCall_fifii");
 
 /** @type {function(...*):?} */
-var dynCall_vifffii = Module["dynCall_vifffii"] = createExportWrapper("dynCall_vifffii");
-
-/** @type {function(...*):?} */
 var dynCall_viiiffi = Module["dynCall_viiiffi"] = createExportWrapper("dynCall_viiiffi");
 
 /** @type {function(...*):?} */
@@ -16288,70 +17664,22 @@ var dynCall_viiifffi = Module["dynCall_viiifffi"] = createExportWrapper("dynCall
 var dynCall_fiifii = Module["dynCall_fiifii"] = createExportWrapper("dynCall_fiifii");
 
 /** @type {function(...*):?} */
+var dynCall_iiiifiiii = Module["dynCall_iiiifiiii"] = createExportWrapper("dynCall_iiiifiiii");
+
+/** @type {function(...*):?} */
 var dynCall_viiiiiffi = Module["dynCall_viiiiiffi"] = createExportWrapper("dynCall_viiiiiffi");
 
 /** @type {function(...*):?} */
 var dynCall_iifffi = Module["dynCall_iifffi"] = createExportWrapper("dynCall_iifffi");
 
 /** @type {function(...*):?} */
-var dynCall_vijiiii = Module["dynCall_vijiiii"] = createExportWrapper("dynCall_vijiiii");
+var dynCall_iiiiffi = Module["dynCall_iiiiffi"] = createExportWrapper("dynCall_iiiiffi");
 
 /** @type {function(...*):?} */
-var dynCall_viiiidii = Module["dynCall_viiiidii"] = createExportWrapper("dynCall_viiiidii");
+var dynCall_vidfffi = Module["dynCall_vidfffi"] = createExportWrapper("dynCall_vidfffi");
 
 /** @type {function(...*):?} */
-var dynCall_vidiiiii = Module["dynCall_vidiiiii"] = createExportWrapper("dynCall_vidiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_viiidjii = Module["dynCall_viiidjii"] = createExportWrapper("dynCall_viiidjii");
-
-/** @type {function(...*):?} */
-var dynCall_viidii = Module["dynCall_viidii"] = createExportWrapper("dynCall_viidii");
-
-/** @type {function(...*):?} */
-var dynCall_iidii = Module["dynCall_iidii"] = createExportWrapper("dynCall_iidii");
-
-/** @type {function(...*):?} */
-var dynCall_viijijji = Module["dynCall_viijijji"] = createExportWrapper("dynCall_viijijji");
-
-/** @type {function(...*):?} */
-var dynCall_vijijji = Module["dynCall_vijijji"] = createExportWrapper("dynCall_vijijji");
-
-/** @type {function(...*):?} */
-var dynCall_vidii = Module["dynCall_vidii"] = createExportWrapper("dynCall_vidii");
-
-/** @type {function(...*):?} */
-var dynCall_iddi = Module["dynCall_iddi"] = createExportWrapper("dynCall_iddi");
-
-/** @type {function(...*):?} */
-var dynCall_ifiii = Module["dynCall_ifiii"] = createExportWrapper("dynCall_ifiii");
-
-/** @type {function(...*):?} */
-var dynCall_viiiiifii = Module["dynCall_viiiiifii"] = createExportWrapper("dynCall_viiiiifii");
-
-/** @type {function(...*):?} */
-var dynCall_vjiii = Module["dynCall_vjiii"] = createExportWrapper("dynCall_vjiii");
-
-/** @type {function(...*):?} */
-var dynCall_vijfffi = Module["dynCall_vijfffi"] = createExportWrapper("dynCall_vijfffi");
-
-/** @type {function(...*):?} */
-var dynCall_iijiiii = Module["dynCall_iijiiii"] = createExportWrapper("dynCall_iijiiii");
-
-/** @type {function(...*):?} */
-var dynCall_jiiiiiiii = Module["dynCall_jiiiiiiii"] = createExportWrapper("dynCall_jiiiiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_ijjjii = Module["dynCall_ijjjii"] = createExportWrapper("dynCall_ijjjii");
-
-/** @type {function(...*):?} */
-var dynCall_ijjjfi = Module["dynCall_ijjjfi"] = createExportWrapper("dynCall_ijjjfi");
-
-/** @type {function(...*):?} */
-var dynCall_ijjjjii = Module["dynCall_ijjjjii"] = createExportWrapper("dynCall_ijjjjii");
-
-/** @type {function(...*):?} */
-var dynCall_ijjjiiiii = Module["dynCall_ijjjiiiii"] = createExportWrapper("dynCall_ijjjiiiii");
+var dynCall_viiiiffii = Module["dynCall_viiiiffii"] = createExportWrapper("dynCall_viiiiffii");
 
 /** @type {function(...*):?} */
 var dynCall_idiiii = Module["dynCall_idiiii"] = createExportWrapper("dynCall_idiiii");
@@ -16402,6 +17730,9 @@ var dynCall_ijijiiiii = Module["dynCall_ijijiiiii"] = createExportWrapper("dynCa
 var dynCall_ijjjiii = Module["dynCall_ijjjiii"] = createExportWrapper("dynCall_ijjjiii");
 
 /** @type {function(...*):?} */
+var dynCall_ijiii = Module["dynCall_ijiii"] = createExportWrapper("dynCall_ijiii");
+
+/** @type {function(...*):?} */
 var dynCall_vijjjiijii = Module["dynCall_vijjjiijii"] = createExportWrapper("dynCall_vijjjiijii");
 
 /** @type {function(...*):?} */
@@ -16409,6 +17740,9 @@ var dynCall_ijjjiijii = Module["dynCall_ijjjiijii"] = createExportWrapper("dynCa
 
 /** @type {function(...*):?} */
 var dynCall_vijiiiiii = Module["dynCall_vijiiiiii"] = createExportWrapper("dynCall_vijiiiiii");
+
+/** @type {function(...*):?} */
+var dynCall_vijiiii = Module["dynCall_vijiiii"] = createExportWrapper("dynCall_vijiiii");
 
 /** @type {function(...*):?} */
 var dynCall_jdi = Module["dynCall_jdi"] = createExportWrapper("dynCall_jdi");
@@ -16465,6 +17799,9 @@ var dynCall_idiiiii = Module["dynCall_idiiiii"] = createExportWrapper("dynCall_i
 var dynCall_iidiii = Module["dynCall_iidiii"] = createExportWrapper("dynCall_iidiii");
 
 /** @type {function(...*):?} */
+var dynCall_ifiii = Module["dynCall_ifiii"] = createExportWrapper("dynCall_ifiii");
+
+/** @type {function(...*):?} */
 var dynCall_ifiiiii = Module["dynCall_ifiiiii"] = createExportWrapper("dynCall_ifiiiii");
 
 /** @type {function(...*):?} */
@@ -16475,6 +17812,9 @@ var dynCall_vdiii = Module["dynCall_vdiii"] = createExportWrapper("dynCall_vdiii
 
 /** @type {function(...*):?} */
 var dynCall_jdii = Module["dynCall_jdii"] = createExportWrapper("dynCall_jdii");
+
+/** @type {function(...*):?} */
+var dynCall_vijijji = Module["dynCall_vijijji"] = createExportWrapper("dynCall_vijijji");
 
 /** @type {function(...*):?} */
 var dynCall_iijjji = Module["dynCall_iijjji"] = createExportWrapper("dynCall_iijjji");
@@ -16516,13 +17856,16 @@ var dynCall_viiiijiiii = Module["dynCall_viiiijiiii"] = createExportWrapper("dyn
 var dynCall_jiiiiii = Module["dynCall_jiiiiii"] = createExportWrapper("dynCall_jiiiiii");
 
 /** @type {function(...*):?} */
+var dynCall_di = Module["dynCall_di"] = createExportWrapper("dynCall_di");
+
+/** @type {function(...*):?} */
+var dynCall_viijjii = Module["dynCall_viijjii"] = createExportWrapper("dynCall_viijjii");
+
+/** @type {function(...*):?} */
 var dynCall_vijjji = Module["dynCall_vijjji"] = createExportWrapper("dynCall_vijjji");
 
 /** @type {function(...*):?} */
 var dynCall_jiiiiiiiiii = Module["dynCall_jiiiiiiiiii"] = createExportWrapper("dynCall_jiiiiiiiiii");
-
-/** @type {function(...*):?} */
-var dynCall_vij = Module["dynCall_vij"] = createExportWrapper("dynCall_vij");
 
 /** @type {function(...*):?} */
 var dynCall_iiiiidii = Module["dynCall_iiiiidii"] = createExportWrapper("dynCall_iiiiidii");
@@ -16531,19 +17874,19 @@ var dynCall_iiiiidii = Module["dynCall_iiiiidii"] = createExportWrapper("dynCall
 var dynCall_iiiiijii = Module["dynCall_iiiiijii"] = createExportWrapper("dynCall_iiiiijii");
 
 /** @type {function(...*):?} */
+var dynCall_iddi = Module["dynCall_iddi"] = createExportWrapper("dynCall_iddi");
+
+/** @type {function(...*):?} */
 var dynCall_iiidiii = Module["dynCall_iiidiii"] = createExportWrapper("dynCall_iiidiii");
+
+/** @type {function(...*):?} */
+var dynCall_iidii = Module["dynCall_iidii"] = createExportWrapper("dynCall_iidii");
 
 /** @type {function(...*):?} */
 var dynCall_viifffiii = Module["dynCall_viifffiii"] = createExportWrapper("dynCall_viifffiii");
 
 /** @type {function(...*):?} */
 var dynCall_iiiiffiiiji = Module["dynCall_iiiiffiiiji"] = createExportWrapper("dynCall_iiiiffiiiji");
-
-/** @type {function(...*):?} */
-var dynCall_iiijii = Module["dynCall_iiijii"] = createExportWrapper("dynCall_iiijii");
-
-/** @type {function(...*):?} */
-var dynCall_fiiiiiii = Module["dynCall_fiiiiiii"] = createExportWrapper("dynCall_fiiiiiii");
 
 /** @type {function(...*):?} */
 var dynCall_iiiiffiiiii = Module["dynCall_iiiiffiiiii"] = createExportWrapper("dynCall_iiiiffiiiii");
@@ -16558,19 +17901,13 @@ var dynCall_jiiiiji = Module["dynCall_jiiiiji"] = createExportWrapper("dynCall_j
 var dynCall_fiiiifi = Module["dynCall_fiiiifi"] = createExportWrapper("dynCall_fiiiifi");
 
 /** @type {function(...*):?} */
-var dynCall_didii = Module["dynCall_didii"] = createExportWrapper("dynCall_didii");
-
-/** @type {function(...*):?} */
-var dynCall_vidiji = Module["dynCall_vidiji"] = createExportWrapper("dynCall_vidiji");
-
-/** @type {function(...*):?} */
-var dynCall_vidjii = Module["dynCall_vidjii"] = createExportWrapper("dynCall_vidjii");
-
-/** @type {function(...*):?} */
 var dynCall_iiidi = Module["dynCall_iiidi"] = createExportWrapper("dynCall_iiidi");
 
 /** @type {function(...*):?} */
 var dynCall_vdi = Module["dynCall_vdi"] = createExportWrapper("dynCall_vdi");
+
+/** @type {function(...*):?} */
+var dynCall_vfi = Module["dynCall_vfi"] = createExportWrapper("dynCall_vfi");
 
 /** @type {function(...*):?} */
 var dynCall_fff = Module["dynCall_fff"] = createExportWrapper("dynCall_fff");
@@ -16604,6 +17941,9 @@ var dynCall_viiiif = Module["dynCall_viiiif"] = createExportWrapper("dynCall_vii
 
 /** @type {function(...*):?} */
 var dynCall_viiiiiif = Module["dynCall_viiiiiif"] = createExportWrapper("dynCall_viiiiiif");
+
+/** @type {function(...*):?} */
+var dynCall_iiijii = Module["dynCall_iiijii"] = createExportWrapper("dynCall_iiijii");
 
 /** @type {function(...*):?} */
 var dynCall_iiiijiii = Module["dynCall_iiiijiii"] = createExportWrapper("dynCall_iiiijiii");
@@ -16675,6 +18015,9 @@ var dynCall_viiiiiiiiiiifii = Module["dynCall_viiiiiiiiiiifii"] = createExportWr
 var dynCall_viff = Module["dynCall_viff"] = createExportWrapper("dynCall_viff");
 
 /** @type {function(...*):?} */
+var dynCall_iiiifiiiii = Module["dynCall_iiiifiiiii"] = createExportWrapper("dynCall_iiiifiiiii");
+
+/** @type {function(...*):?} */
 var dynCall_iiiiifiiiiif = Module["dynCall_iiiiifiiiiif"] = createExportWrapper("dynCall_iiiiifiiiiif");
 
 /** @type {function(...*):?} */
@@ -16714,16 +18057,13 @@ var dynCall_iiijji = Module["dynCall_iiijji"] = createExportWrapper("dynCall_iii
 var dynCall_ijjiiiii = Module["dynCall_ijjiiiii"] = createExportWrapper("dynCall_ijjiiiii");
 
 /** @type {function(...*):?} */
+var dynCall_vidd = Module["dynCall_vidd"] = createExportWrapper("dynCall_vidd");
+
+/** @type {function(...*):?} */
 var dynCall_iiiiiifffiiifiii = Module["dynCall_iiiiiifffiiifiii"] = createExportWrapper("dynCall_iiiiiifffiiifiii");
 
 /** @type {function(...*):?} */
-var dynCall_viid = Module["dynCall_viid"] = createExportWrapper("dynCall_viid");
-
-/** @type {function(...*):?} */
 var dynCall_fiiiif = Module["dynCall_fiiiif"] = createExportWrapper("dynCall_fiiiif");
-
-/** @type {function(...*):?} */
-var dynCall_iiiiiff = Module["dynCall_iiiiiff"] = createExportWrapper("dynCall_iiiiiff");
 
 /** @type {function(...*):?} */
 var dynCall_vjiiiiiii = Module["dynCall_vjiiiiiii"] = createExportWrapper("dynCall_vjiiiiiii");
@@ -16750,6 +18090,9 @@ var dynCall_vifff = Module["dynCall_vifff"] = createExportWrapper("dynCall_vifff
 var dynCall_viifff = Module["dynCall_viifff"] = createExportWrapper("dynCall_viifff");
 
 /** @type {function(...*):?} */
+var dynCall_vij = Module["dynCall_vij"] = createExportWrapper("dynCall_vij");
+
+/** @type {function(...*):?} */
 var dynCall_ij = Module["dynCall_ij"] = createExportWrapper("dynCall_ij");
 
 /** @type {function(...*):?} */
@@ -16760,6 +18103,9 @@ var dynCall_f = Module["dynCall_f"] = createExportWrapper("dynCall_f");
 
 /** @type {function(...*):?} */
 var dynCall_viiif = Module["dynCall_viiif"] = createExportWrapper("dynCall_viiif");
+
+/** @type {function(...*):?} */
+var dynCall_vffffffi = Module["dynCall_vffffffi"] = createExportWrapper("dynCall_vffffffi");
 
 /** @type {function(...*):?} */
 var dynCall_ff = Module["dynCall_ff"] = createExportWrapper("dynCall_ff");
@@ -16781,12 +18127,6 @@ var dynCall_viiffiiiiii = Module["dynCall_viiffiiiiii"] = createExportWrapper("d
 
 /** @type {function(...*):?} */
 var dynCall_viiiiiiiijiii = Module["dynCall_viiiiiiiijiii"] = createExportWrapper("dynCall_viiiiiiiijiii");
-
-/** @type {function(...*):?} */
-var dynCall_d = Module["dynCall_d"] = createExportWrapper("dynCall_d");
-
-/** @type {function(...*):?} */
-var dynCall_jiiiiiii = Module["dynCall_jiiiiiii"] = createExportWrapper("dynCall_jiiiiiii");
 
 
 function invoke_ii(index,a1) {
@@ -17064,50 +18404,6 @@ function invoke_iiifii(index,a1,a2,a3,a4,a5) {
   }
 }
 
-function invoke_viffi(index,a1,a2,a3,a4) {
-  var sp = stackSave();
-  try {
-    dynCall_viffi(index,a1,a2,a3,a4);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_vidi(index,a1,a2,a3) {
-  var sp = stackSave();
-  try {
-    dynCall_vidi(index,a1,a2,a3);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viidi(index,a1,a2,a3,a4) {
-  var sp = stackSave();
-  try {
-    dynCall_viidi(index,a1,a2,a3,a4);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_dii(index,a1,a2) {
-  var sp = stackSave();
-  try {
-    return dynCall_dii(index,a1,a2);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
 function invoke_iiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9) {
   var sp = stackSave();
   try {
@@ -17119,32 +18415,98 @@ function invoke_iiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9) {
   }
 }
 
+function invoke_iiiidii(index,a1,a2,a3,a4,a5,a6) {
+  var sp = stackSave();
+  try {
+    return dynCall_iiiidii(index,a1,a2,a3,a4,a5,a6);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viffi(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    dynCall_viffi(index,a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_fi(index,a1) {
+  var sp = stackSave();
+  try {
+    return dynCall_fi(index,a1);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_vifi(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    dynCall_vifi(index,a1,a2,a3);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiffi(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    dynCall_viiffi(index,a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiifi(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    return dynCall_iiifi(index,a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiifi(index,a1,a2,a3,a4,a5,a6) {
+  var sp = stackSave();
+  try {
+    dynCall_viiiifi(index,a1,a2,a3,a4,a5,a6);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_fii(index,a1,a2) {
+  var sp = stackSave();
+  try {
+    return dynCall_fii(index,a1,a2);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
 function invoke_iifi(index,a1,a2,a3) {
   var sp = stackSave();
   try {
     return dynCall_iifi(index,a1,a2,a3);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viiifii(index,a1,a2,a3,a4,a5,a6) {
-  var sp = stackSave();
-  try {
-    dynCall_viiifii(index,a1,a2,a3,a4,a5,a6);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viifiii(index,a1,a2,a3,a4,a5,a6) {
-  var sp = stackSave();
-  try {
-    dynCall_viifiii(index,a1,a2,a3,a4,a5,a6);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17185,10 +18547,10 @@ function invoke_viifii(index,a1,a2,a3,a4,a5) {
   }
 }
 
-function invoke_vifi(index,a1,a2,a3) {
+function invoke_vidi(index,a1,a2,a3) {
   var sp = stackSave();
   try {
-    dynCall_vifi(index,a1,a2,a3);
+    dynCall_vidi(index,a1,a2,a3);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17196,10 +18558,10 @@ function invoke_vifi(index,a1,a2,a3) {
   }
 }
 
-function invoke_fii(index,a1,a2) {
+function invoke_viidi(index,a1,a2,a3,a4) {
   var sp = stackSave();
   try {
-    return dynCall_fii(index,a1,a2);
+    dynCall_viidi(index,a1,a2,a3,a4);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17207,65 +18569,10 @@ function invoke_fii(index,a1,a2) {
   }
 }
 
-function invoke_viiffi(index,a1,a2,a3,a4,a5) {
+function invoke_dii(index,a1,a2) {
   var sp = stackSave();
   try {
-    dynCall_viiffi(index,a1,a2,a3,a4,a5);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viiiidi(index,a1,a2,a3,a4,a5,a6) {
-  var sp = stackSave();
-  try {
-    dynCall_viiiidi(index,a1,a2,a3,a4,a5,a6);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiiiiiidii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9) {
-  var sp = stackSave();
-  try {
-    return dynCall_iiiiiiidii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_fi(index,a1) {
-  var sp = stackSave();
-  try {
-    return dynCall_fi(index,a1);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_fiiii(index,a1,a2,a3,a4) {
-  var sp = stackSave();
-  try {
-    return dynCall_fiiii(index,a1,a2,a3,a4);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_di(index,a1) {
-  var sp = stackSave();
-  try {
-    return dynCall_di(index,a1);
+    return dynCall_dii(index,a1,a2);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17284,32 +18591,10 @@ function invoke_viiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8) {
   }
 }
 
-function invoke_viiiifi(index,a1,a2,a3,a4,a5,a6) {
+function invoke_iiiifii(index,a1,a2,a3,a4,a5,a6) {
   var sp = stackSave();
   try {
-    dynCall_viiiifi(index,a1,a2,a3,a4,a5,a6);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiiidii(index,a1,a2,a3,a4,a5,a6) {
-  var sp = stackSave();
-  try {
-    return dynCall_iiiidii(index,a1,a2,a3,a4,a5,a6);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiifi(index,a1,a2,a3,a4) {
-  var sp = stackSave();
-  try {
-    return dynCall_iiifi(index,a1,a2,a3,a4);
+    return dynCall_iiiifii(index,a1,a2,a3,a4,a5,a6);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17321,6 +18606,17 @@ function invoke_viiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9) {
   var sp = stackSave();
   try {
     dynCall_viiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_vidd(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    dynCall_vidd(index,a1,a2,a3);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17372,32 +18668,10 @@ function invoke_ji(index,a1) {
   }
 }
 
-function invoke_viijii(index,a1,a2,a3,a4,a5,a6) {
-  var sp = stackSave();
-  try {
-    dynCall_viijii(index,a1,a2,a3,a4,a5,a6);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
 function invoke_j(index) {
   var sp = stackSave();
   try {
     return dynCall_j(index);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_jiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
-  var sp = stackSave();
-  try {
-    return dynCall_jiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17427,10 +18701,10 @@ function invoke_jjji(index,a1,a2,a3,a4,a5) {
   }
 }
 
-function invoke_vijii(index,a1,a2,a3,a4,a5) {
+function invoke_jiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
   var sp = stackSave();
   try {
-    dynCall_vijii(index,a1,a2,a3,a4,a5);
+    return dynCall_jiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17438,10 +18712,10 @@ function invoke_vijii(index,a1,a2,a3,a4,a5) {
   }
 }
 
-function invoke_iijiii(index,a1,a2,a3,a4,a5,a6) {
+function invoke_jiiiii(index,a1,a2,a3,a4,a5) {
   var sp = stackSave();
   try {
-    return dynCall_iijiii(index,a1,a2,a3,a4,a5,a6);
+    return dynCall_jiiiii(index,a1,a2,a3,a4,a5);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17460,43 +18734,10 @@ function invoke_iiiijii(index,a1,a2,a3,a4,a5,a6,a7) {
   }
 }
 
-function invoke_ijii(index,a1,a2,a3,a4) {
-  var sp = stackSave();
-  try {
-    return dynCall_ijii(index,a1,a2,a3,a4);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viiiji(index,a1,a2,a3,a4,a5,a6) {
-  var sp = stackSave();
-  try {
-    dynCall_viiiji(index,a1,a2,a3,a4,a5,a6);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
 function invoke_viji(index,a1,a2,a3,a4) {
   var sp = stackSave();
   try {
     dynCall_viji(index,a1,a2,a3,a4);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viiji(index,a1,a2,a3,a4,a5) {
-  var sp = stackSave();
-  try {
-    dynCall_viiji(index,a1,a2,a3,a4,a5);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17515,32 +18756,10 @@ function invoke_jiii(index,a1,a2,a3) {
   }
 }
 
-function invoke_viidiji(index,a1,a2,a3,a4,a5,a6,a7) {
+function invoke_viiiji(index,a1,a2,a3,a4,a5,a6) {
   var sp = stackSave();
   try {
-    dynCall_viidiji(index,a1,a2,a3,a4,a5,a6,a7);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_jiiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
-  var sp = stackSave();
-  try {
-    return dynCall_jiiiiiii(index,a1,a2,a3,a4,a5,a6,a7);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_jjiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12) {
-  var sp = stackSave();
-  try {
-    return dynCall_jjiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12);
+    dynCall_viiiji(index,a1,a2,a3,a4,a5,a6);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17563,17 +18782,6 @@ function invoke_vji(index,a1,a2,a3) {
   var sp = stackSave();
   try {
     dynCall_vji(index,a1,a2,a3);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiji(index,a1,a2,a3,a4) {
-  var sp = stackSave();
-  try {
-    return dynCall_iiji(index,a1,a2,a3,a4);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17614,32 +18822,32 @@ function invoke_iijji(index,a1,a2,a3,a4,a5,a6) {
   }
 }
 
-function invoke_jiiiii(index,a1,a2,a3,a4,a5) {
-  var sp = stackSave();
-  try {
-    return dynCall_jiiiii(index,a1,a2,a3,a4,a5);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iijii(index,a1,a2,a3,a4,a5) {
-  var sp = stackSave();
-  try {
-    return dynCall_iijii(index,a1,a2,a3,a4,a5);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
 function invoke_jijii(index,a1,a2,a3,a4,a5) {
   var sp = stackSave();
   try {
     return dynCall_jijii(index,a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_vijii(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    dynCall_vijii(index,a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iijiii(index,a1,a2,a3,a4,a5,a6) {
+  var sp = stackSave();
+  try {
+    return dynCall_iijiii(index,a1,a2,a3,a4,a5,a6);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
@@ -17673,6 +18881,39 @@ function invoke_vjiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
   var sp = stackSave();
   try {
     dynCall_vjiiiii(index,a1,a2,a3,a4,a5,a6,a7);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiji(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    dynCall_viiji(index,a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiji(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    return dynCall_iiji(index,a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iijii(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    return dynCall_iijii(index,a1,a2,a3,a4,a5);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
